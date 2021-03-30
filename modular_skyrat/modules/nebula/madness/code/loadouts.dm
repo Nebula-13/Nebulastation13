@@ -1,0 +1,1 @@
+/datum/loadout_item/mask/donator/public

@@ -131,9 +131,9 @@ GLOBAL_LIST_INIT(message_modes_stat_limits, list(
 	if(stat != DEAD && check_emote(original_message, forced))
 		return
 
-	if(try_say_magic(message))	// NEBULA START -- magic
+	if(!message_mods[WHISPER_MODE] && try_say_magic(original_message))	// NEBULA START -- magic
 		whisper(message)
-		return					// NEBULA END -- magic
+		return															// NEBULA END -- magic
 
 	// Checks if the saymode or channel extension can be used even if not totally conscious.
 	var/say_radio_or_mode = saymode || message_mods[RADIO_EXTENSION]

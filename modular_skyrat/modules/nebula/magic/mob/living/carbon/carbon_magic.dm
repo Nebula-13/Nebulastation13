@@ -78,7 +78,7 @@
 	if(MI.should_reject(src))
 		log_message("Experienced rejection from [MI.name] ([MI.type])", LOG_ATTACK)
 		visible_message("<span class='danger'>[src]'s blood vessels burst!</span>", "<span class='userdanger'>Your blood vessels burst!</span>")
-		adjustToxLoss(residual_energy? residual_energy : 15 * SSmagic.magical_factor)
+		adjustToxLoss(2 * SSmagic.magical_factor)
 		return TRUE
 	return FALSE
 
@@ -94,10 +94,10 @@
 /mob/living/carbon/handle_rejection(datum/magic/MI) //
 	. = ..()
 	if(.)
-		vomit(FALSE, TRUE, TRUE, rand(1, 3))
+		vomit(FALSE, TRUE, FALSE, rand(1, 3))
 
 /mob/living/carbon/human/handle_rejection(datum/magic/MI)
 	. = ..()
 	if(.)
-		bleed(residual_energy ? residual_energy : 15 * SSmagic.magical_factor)
-		physiology.bleed_mod = max(physiology.bleed_mod + (residual_energy ? residual_energy : 10 * SSmagic.magical_factor), residual_energy ? residual_energy : 10 * SSmagic.magical_factor)
+		bleed(5 * SSmagic.magical_factor * 0.6)
+		physiology.bleed_mod = max(physiology.bleed_mod + (0.5 * SSmagic.magical_factor), 0.5 * SSmagic.magical_factor)

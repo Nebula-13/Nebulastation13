@@ -9,7 +9,7 @@
 /datum/magic/invoke/locator
 	name = "Magic Locator"
 	complexity = 4
-	residual_cost = 10
+	residual_cost = 7
 	uses = 1
 	possible_words = list("cogitare", "ostende", "inveniet", "quaerere", "vestium", "dimensionem", "spectrum")
 
@@ -25,7 +25,7 @@
 	var/obj/structure/closet/locker = SSbluespace_locker.external_locker
 	if(locker)
 		var/obj/effect/temp_visual/eye_locator/o = new (get_turf(locker))
-		o.set_light(6, 5)
+		o.set_light(5, 4)
 		animate(o, alpha = 255, time = 3 SECONDS)
 		firer.reset_perspective(o)
 		firer.Immobilize(45)

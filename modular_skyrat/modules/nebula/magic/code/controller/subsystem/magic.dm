@@ -7,7 +7,7 @@ SUBSYSTEM_DEF(magic)
 
 /datum/controller/subsystem/magic/Initialize()
 	. = ..()
-	magical_factor = rand(MAGIC_RANDOMIZATION_MIN, MAGIC_RANDOMIZATION_MAX) * 1.5
+	magical_factor = rand(MAGIC_RANDOMIZATION_MIN, MAGIC_RANDOMIZATION_MAX) * 0.5
 	for(var/m in subtypesof(/datum/magic))
 		var/datum/magic/M = m
 		if(initial(M.name) && initial(M.roundstart))

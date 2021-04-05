@@ -2,7 +2,9 @@
 	var/list/possible_words = list()
 	var/list/phrase_list = list()
 	var/phrase
-	var/uses
+	var/uses // for magics with a limited number of uses!
+	var/cooldown_time = 0 // for magic with cooldown! the time of the cooldown for the magic
+	var/cooldown = 0 // the cooldown itself
 
 /datum/magic/invoke/setup()
 	var/done = FALSE

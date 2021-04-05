@@ -21,11 +21,16 @@
 
 		var/diff = length(difflist(MI.phrase_list, split))
 		if(!diff && trimmed == MI.phrase)
+			if(MI.cooldown_time && MI.cooldown > world.time)
+				to_chat(src, "<span class='danger'>[MI.name] isn't ready yet!</span>")
+				return TRUE
 			handle_rejection(MI)
 			log_message("Invoked [MI.name] ([MI.type])", LOG_ATTACK)
 			to_chat(src, "<span class='notice'>You successfully invoked the [MI.name] magic!</span>")
 			residual_energy += MI.residual_cost * SSmagic.magical_factor
 			MI.fire(src, FALSE)
+			if(MI.cooldown_time)
+				MI.cooldown = world.time + MI.cooldown_time
 			return TRUE
 		else if(diff <= MI.max_misfire || (!diff && trimmed != MI.phrase))
 			handle_rejection(MI)

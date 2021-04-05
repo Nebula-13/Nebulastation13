@@ -42,6 +42,7 @@
 
 /mob/living
 	var/residual_energy = 0
+	var/magic_affinity = FALSE
 	var/list/used_magics = list()
 
 /mob/living/Destroy()

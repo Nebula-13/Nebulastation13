@@ -563,7 +563,8 @@ SUBSYSTEM_DEF(job)
 		var/mob/living/carbon/human/wageslave = living_mob
 		living_mob.add_memory("Your account ID is [wageslave.account_id].")
 		if(SSmagic && SSmagic.initialized && prob(40)) // NEBULA START -- magic
-			living_mob.mind.store_memory(SSmagic.set_memory(living_mob)) // NEBULA END -- magic
+			living_mob.mind.store_memory(SSmagic.set_memory(living_mob))
+			living_mob.magic_affinity = TRUE	// NEBULA END -- magic
 	if(job && living_mob)
 		job.after_spawn(living_mob, M, joined_late) // note: this happens before the mob has a key! M will always have a client, living_mob might not.
 		//SKYRAT CHANGE ADDITION BEGIN - CUSTOMIZATION

@@ -13,6 +13,8 @@
 
 /datum/magic/proc/check_uses(mob/living/firer)
 
+/datum/magic/proc/check_cooldown(mob/living/firer, datum/magic/invoke/MI)
+
 /datum/magic/proc/should_reject(mob/living/firer)
 	. = FALSE
 	if(ishuman(firer))

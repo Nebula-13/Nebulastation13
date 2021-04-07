@@ -46,3 +46,18 @@
 		firer.used_magics["[name]"] += 1
 		return FALSE
 	return FALSE
+
+/datum/magic/invoke/check_cooldown(mob/living/firer, datum/magic/invoke/MI)
+	if(MI.cooldown_time)
+		for(var/M in firer.cdr_magics)
+			if(M == name)
+				if(firer.cdr_magics[M] < world.time)
+					firer.cdr_magics["[name]"] = world.time + MI.cooldown_time
+					return TRUE
+				else if(firer.cdr_magics[M] > world.time)
+					return TRUE
+			else
+				continue
+		firer.cdr_magics["[name]"] = 0
+		return FALSE
+	return FALSE

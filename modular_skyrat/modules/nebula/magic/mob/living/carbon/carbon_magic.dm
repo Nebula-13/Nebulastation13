@@ -21,21 +21,19 @@
 
 		var/diff = length(difflist(MI.phrase_list, split))
 		if(!diff && trimmed == MI.phrase)
-			if(MI.cooldown_time && MI.cooldown > world.time)
+			if(MI.check_cooldown(src, MI))
 				to_chat(src, "<span class='danger'>[MI.name] isn't ready yet!</span>")
 				return TRUE
 			handle_rejection(MI)
 			log_message("Invoked [MI.name] ([MI.type])", LOG_ATTACK)
-			to_chat(src, "<span class='notice'>You successfully invoked the [MI.name] magic!</span>")
+			to_chat(src, "<span class='notice'>You successfully invoked [MI.name]!</span>")
 			residual_energy += MI.residual_cost * SSmagic.magical_factor
 			MI.fire(src, FALSE)
-			if(MI.cooldown_time)
-				MI.cooldown = world.time + MI.cooldown_time
 			return TRUE
 		else if(diff <= MI.max_misfire || (!diff && trimmed != MI.phrase))
 			handle_rejection(MI)
 			log_message("Misfired [MI.name] ([MI.type])", LOG_ATTACK)
-			to_chat(src, "<span class='danger'>You failed to invoke the [MI.name] magic!</span>")
+			to_chat(src, "<span class='danger'>You failed to invoke [MI.name]!</span>")
 			residual_energy += MI.residual_cost * SSmagic.magical_factor
 			MI.misfire(src, FALSE)
 			return TRUE
@@ -44,10 +42,12 @@
 	var/residual_energy = 0
 	var/magic_affinity = FALSE
 	var/list/used_magics = list()
+	var/list/cdr_magics = list()
 
 /mob/living/Destroy()
 	. = ..()
 	QDEL_LIST(used_magics)
+	QDEL_LIST(cdr_magics)
 
 /mob/living/proc/process_residual_energy()
 	var/static/list/beneficial_clothes = typecacheof(list(

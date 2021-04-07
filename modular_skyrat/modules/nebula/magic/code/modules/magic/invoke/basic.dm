@@ -8,6 +8,17 @@
 /datum/magic/invoke/sparks/fire(mob/living/firer, amped)
 	do_sparks(amped ? 6 : 3, TRUE, firer)
 
+// Glow
+/datum/magic/invoke/glow
+	name = "Lumos" // that reference
+	complexity = 1
+	cooldown_time = 10 MINUTES
+	possible_words = list("lumos")
+
+/datum/magic/invoke/glow/fire(mob/living/firer, amped)
+	var/obj/effect/dummy/luminescent_glow/glow = new(firer)
+	glow.set_light(3, 3, "#7079f1")
+	QDEL_IN(glow, 5 MINUTES)
 
 // Magic Locator
 /datum/magic/invoke/locator

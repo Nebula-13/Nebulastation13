@@ -3,7 +3,7 @@
 	var/complexity = 1
 	var/max_misfire = 1
 	var/residual_cost = 5
-	var/roundstart = TRUE
+	var/roundstart = FALSE
 
 /datum/magic/proc/setup() // called by SSmagic
 
@@ -12,6 +12,8 @@
 /datum/magic/proc/misfire(mob/living/firer, amped = FALSE)
 
 /datum/magic/proc/check_uses(mob/living/firer)
+
+/datum/magic/proc/counter(mob/living/firer, datum/magic/invoke/MI)
 
 /datum/magic/proc/check_cooldown(mob/living/firer, datum/magic/invoke/MI)
 

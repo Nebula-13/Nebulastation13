@@ -8,17 +8,43 @@
 /datum/magic/invoke/sparks/fire(mob/living/firer, amped)
 	do_sparks(amped ? 6 : 3, TRUE, firer)
 
-// Glow
-/datum/magic/invoke/glow
+// Lumos  and their variants
+/datum/magic/invoke/lumos
 	name = "Lumos" // that reference
 	complexity = 1
+	roundstart = TRUE
 	cooldown_time = 10 MINUTES
 	possible_words = list("lumos")
+	counter_charm = list("nox")
+	var/obj/effect/dummy/luminescent_glow/glow
+	var/timerid
 
-/datum/magic/invoke/glow/fire(mob/living/firer, amped)
-	var/obj/effect/dummy/luminescent_glow/glow = new(firer)
-	glow.set_light(3, 3, "#7079f1")
-	QDEL_IN(glow, 5 MINUTES)
+/datum/magic/invoke/lumos/fire(mob/living/firer, amped)
+	glow = new(firer)
+	glow.set_light_range_power_color(3, 2, "#767ef0")
+	timerid = QDEL_IN(glow, 5 MINUTES)
+
+/datum/magic/invoke/lumos/counter(mob/living/firer)
+	if(glow)
+		deltimer(timerid)
+		qdel(glow)
+	else
+		to_chat(firer, "<span class='danger'>You need to invoke Lumos in order to use this.</span>")
+
+// Lumox Maxima
+/datum/magic/invoke/lumos/maxima
+	name = "Lumos Maxima"
+	complexity = 2
+	cooldown_time = 0
+	residual_cost = 8
+	possible_words = list("lumos", "maxima")
+
+/datum/magic/invoke/lumos/maxima/fire(mob/living/firer, amped)
+	glow = locate() in firer
+	if(glow)
+		glow.set_light_range_power_color(5, 3, "#767ef0")
+	else
+		to_chat(firer, "<span class='danger'>You need to invoke Lumos in order to use this.</span>")
 
 // Magic Locator
 /datum/magic/invoke/locator

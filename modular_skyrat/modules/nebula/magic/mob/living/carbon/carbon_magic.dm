@@ -9,6 +9,9 @@
 	for(var/datum/magic/invoke/MI in SSmagic.loaded_magic)
 		if(split_pre.len < MI.complexity)
 			continue
+		if(MI.counter_charm && (trimmed in MI.counter_charm))
+			MI.counter(src)
+			return TRUE
 		var/list/split = list()
 		var/ok = TRUE
 		for(var/i = 1 to MI.complexity)

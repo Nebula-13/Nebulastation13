@@ -5,11 +5,27 @@
 	var/uses // for magics with a limited number of uses!
 	var/cooldown_time = 0 // for magic with cooldown! the time of the cooldown for the magic
 	var/cooldown = 0 // the cooldown itself
+	var/list/counter_charm // the counter charm of the magic, if any
 
 /datum/magic/invoke/setup()
-	var/done = FALSE
 	if(!LAZYLEN(possible_words))
 		return
+
+	if(roundstart)
+		var/list/words = possible_words.Copy()
+		var/new_phrase = ""
+		var/new_phrase_list = list()
+		for(var/i = 1 to complexity)
+			var/word = "[words[i]]"
+			new_phrase = "[new_phrase][word] "
+			new_phrase_list += word
+		new_phrase = trim_right(new_phrase)
+		phrase = new_phrase
+		phrase_list = new_phrase_list
+		log_game("Magic [name] has phrase \"[phrase]\"")
+		return
+
+	var/done = FALSE
 	while(!done)
 		var/list/words = possible_words.Copy()
 		var/new_phrase = ""
@@ -51,13 +67,12 @@
 	if(MI.cooldown_time)
 		for(var/M in firer.cdr_magics)
 			if(M == name)
-				if(firer.cdr_magics[M] < world.time)
-					firer.cdr_magics["[name]"] = world.time + MI.cooldown_time
+				if(firer.cdr_magics[M] > world.time)
 					return TRUE
-				else if(firer.cdr_magics[M] > world.time)
-					return TRUE
+				else
+					break
 			else
 				continue
-		firer.cdr_magics["[name]"] = 0
+		firer.cdr_magics["[name]"] = world.time + MI.cooldown_time
 		return FALSE
 	return FALSE

@@ -10,7 +10,7 @@ SUBSYSTEM_DEF(magic)
 	magical_factor = rand(MAGIC_RANDOMIZATION_MIN, MAGIC_RANDOMIZATION_MAX) * 0.5
 	for(var/m in subtypesof(/datum/magic))
 		var/datum/magic/M = m
-		if(initial(M.name) && initial(M.roundstart))
+		if(initial(M.name))
 			log_game("Loaded magic [initial(M.name)]!")
 			var/datum/magic/magick = new m
 			magick.setup()

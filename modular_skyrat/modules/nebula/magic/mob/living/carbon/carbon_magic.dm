@@ -24,21 +24,11 @@
 
 		var/diff = length(difflist(MI.phrase_list, split))
 		if(!diff && trimmed == MI.phrase)
-			if(MI.check_cooldown(src, MI))
-				to_chat(src, "<span class='danger'>[MI.name] isn't ready yet!</span>")
-				return TRUE
-			handle_rejection(MI)
-			log_message("Invoked [MI.name] ([MI.type])", LOG_ATTACK)
-			to_chat(src, "<span class='notice'>You successfully invoked [MI.name]!</span>")
-			residual_energy += MI.residual_cost * SSmagic.magical_factor
-			MI.fire(src, FALSE)
+			MI.fire_process(src, MI)
 			return TRUE
+
 		else if(diff <= MI.max_misfire || (!diff && trimmed != MI.phrase))
-			handle_rejection(MI)
-			log_message("Misfired [MI.name] ([MI.type])", LOG_ATTACK)
-			to_chat(src, "<span class='danger'>You failed to invoke [MI.name]!</span>")
-			residual_energy += MI.residual_cost * SSmagic.magical_factor
-			MI.misfire(src, FALSE)
+			MI.misfire_process(src, MI)
 			return TRUE
 
 /mob/living

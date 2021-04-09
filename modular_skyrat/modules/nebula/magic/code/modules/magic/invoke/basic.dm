@@ -19,7 +19,7 @@
 	var/obj/effect/dummy/luminescent_glow/glow
 	var/timerid
 
-/datum/magic/invoke/lumos/fire(mob/living/firer, amped)
+/datum/magic/invoke/lumos/fire(mob/living/firer)
 	glow = new(firer)
 	glow.set_light_range_power_color(3, 2, "#767ef0")
 	timerid = QDEL_IN(glow, 5 MINUTES)
@@ -39,7 +39,7 @@
 	residual_cost = 8
 	possible_words = list("lumos", "maxima")
 
-/datum/magic/invoke/lumos/maxima/fire(mob/living/firer, amped)
+/datum/magic/invoke/lumos/maxima/fire(mob/living/firer)
 	glow = locate() in firer
 	if(glow)
 		glow.set_light_range_power_color(5, 3, "#767ef0")
@@ -54,14 +54,7 @@
 	uses = 1
 	possible_words = list("cogitare", "ostende", "inveniet", "quaerere", "vestium", "dimensionem", "spectrum")
 
-/datum/magic/invoke/locator/fire(mob/living/firer, amped)
-	if(check_uses(firer))
-		firer.handle_rejection(src)
-		firer.log_message("Misfired [name] ([type])", LOG_ATTACK)
-		to_chat(firer, "<span class='danger'>[name] misfired! You can no longer use this magic.</span>")
-		firer.residual_energy += residual_cost * SSmagic.magical_factor
-		misfire(firer, FALSE)
-		return
+/datum/magic/invoke/locator/fire(mob/living/firer)
 
 	var/obj/structure/closet/locker = SSbluespace_locker.external_locker
 	if(locker)

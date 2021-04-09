@@ -51,10 +51,36 @@
 	firer.fire_stacks += amped ? 5 : 2
 	firer.IgniteMob()
 
-/datum/magic/invoke/check_uses(mob/living/firer)
-	if(uses)
+/datum/magic/invoke/fire_process(mob/living/firer, datum/magic/invoke/MI)
+	if(MI.check_uses(firer, MI))
+		firer.handle_rejection(MI)
+		firer.log_message("Misfired [name] ([type])", LOG_ATTACK)
+		to_chat(firer, "<span class='danger'>[name] misfired! You can no longer use this magic.</span>")
+		firer.residual_energy += residual_cost * SSmagic.magical_factor
+		MI.misfire(firer, FALSE)
+		return
+
+	if(MI.check_cooldown(firer, MI))
+		to_chat(firer, "<span class='danger'>[MI.name] isn't ready yet!</span>")
+		return
+
+	firer.handle_rejection(MI)
+	firer.log_message("Invoked [MI.name] ([MI.type])", LOG_ATTACK)
+	to_chat(firer, "<span class='notice'>You successfully invoked [MI.name]!</span>")
+	firer.residual_energy += MI.residual_cost * SSmagic.magical_factor
+	MI.fire(firer, FALSE)
+
+/datum/magic/invoke/misfire_process(mob/living/firer, datum/magic/invoke/MI)
+	firer.handle_rejection(MI)
+	firer.log_message("Misfired [MI.name] ([MI.type])", LOG_ATTACK)
+	to_chat(firer, "<span class='danger'>You failed to invoke [MI.name]!</span>")
+	firer.residual_energy += MI.residual_cost * SSmagic.magical_factor
+	MI.misfire(firer, FALSE)
+
+/datum/magic/invoke/check_uses(mob/living/firer, datum/magic/invoke/MI)
+	if(MI.uses)
 		for(var/M in firer.used_magics)
-			if(M == name && firer.used_magics[M] >= uses)
+			if(M == name && firer.used_magics[M] >= MI.uses)
 				firer.used_magics["[name]"] += 1
 				return TRUE
 			else

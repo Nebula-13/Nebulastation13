@@ -3,7 +3,9 @@ SUBSYSTEM_DEF(magic)
 	init_order = INIT_ORDER_XKEYSCORE
 	flags = SS_NO_FIRE
 	var/magical_factor
+	var/join_magic_prob = 40
 	var/list/loaded_magic = list()
+	var/list/all_phrases_list = list()
 
 /datum/controller/subsystem/magic/Initialize()
 	. = ..()
@@ -18,9 +20,7 @@ SUBSYSTEM_DEF(magic)
 
 /datum/controller/subsystem/magic/proc/set_memory(mob/living/user)
 	if(user.mind && SSmagic && SSmagic.initialized)
-		var/list/words = list()
-		for(var/datum/magic/invoke/IM in SSmagic.loaded_magic)
-			words += pick(IM.phrase_list)
-		var/picked_word = pick(words)
-		var/phrase_text = "You remember a word.. [picked_word].."
+		var/turf/chosen_location = get_safe_random_station_turf()
+		new /obj/effect/blue_fire(chosen_location, user, TRUE)
+		var/phrase_text = "You have been blessed with the power to invoke magic! But you feel a strange aurea coming from \the [get_area_name(chosen_location, TRUE)].."
 		return	phrase_text

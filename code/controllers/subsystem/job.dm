@@ -573,7 +573,7 @@ SUBSYSTEM_DEF(job)
 	if(ishuman(living_mob))
 		var/mob/living/carbon/human/wageslave = living_mob
 		living_mob.add_memory("Your account ID is [wageslave.account_id].")
-		if(SSmagic && SSmagic.initialized && prob(40)) // NEBULA START -- magic
+		if(SSmagic && SSmagic.initialized && prob(SSmagic.join_magic_prob)) // NEBULA START -- magic
 			living_mob.mind.store_memory(SSmagic.set_memory(living_mob))
 			living_mob.magic_affinity = TRUE	// NEBULA END -- magic
 	if(job && living_mob)

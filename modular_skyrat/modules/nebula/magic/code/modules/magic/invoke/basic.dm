@@ -25,6 +25,7 @@
 	timerid = QDEL_IN(glow, 5 MINUTES)
 
 /datum/magic/invoke/lumos/counter(mob/living/firer)
+	glow = locate() in firer
 	if(glow)
 		deltimer(timerid)
 		qdel(glow)
@@ -45,6 +46,17 @@
 		glow.set_light_range_power_color(5, 3, "#767ef0")
 	else
 		to_chat(firer, "<span class='danger'>You need to invoke Lumos in order to use this.</span>")
+
+// Apparate
+/datum/magic/invoke/apparate
+	name = "Apparate"
+	complexity = 1
+	uses = 1
+	roundstart = TRUE
+	possible_words = list("apparatus")
+
+/datum/magic/invoke/apparate/fire(mob/living/firer)
+	do_teleport(firer, get_turf(firer), 15, asoundin = 'sound/magic/enter_blood.ogg', asoundout = 'sound/magic/exit_blood.ogg', channel = TELEPORT_CHANNEL_MAGIC, no_effects = TRUE)
 
 // Magic Locator
 /datum/magic/invoke/locator

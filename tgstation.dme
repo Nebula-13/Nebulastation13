@@ -4146,6 +4146,7 @@
 #include "modular_skyrat\modules\nebula\madness\code\weapons.dm"
 #include "modular_skyrat\modules\nebula\magic\__DEFINES\magic.dm"
 #include "modular_skyrat\modules\nebula\magic\code\controller\subsystem\magic.dm"
+#include "modular_skyrat\modules\nebula\magic\code\modules\magic\_blue_fire.dm"
 #include "modular_skyrat\modules\nebula\magic\code\modules\magic\_magic.dm"
 #include "modular_skyrat\modules\nebula\magic\code\modules\magic\invoke\_invoking.dm"
 #include "modular_skyrat\modules\nebula\magic\code\modules\magic\invoke\basic.dm"

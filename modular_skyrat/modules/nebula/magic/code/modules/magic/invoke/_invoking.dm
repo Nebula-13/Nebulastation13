@@ -45,6 +45,8 @@
 				phrase = new_phrase
 				phrase_list = new_phrase_list
 				log_game("Magic [name] has phrase \"[phrase]\"")
+				SSmagic.all_phrases_list |= phrase_list
+				GLOB.blue_fire_track.all_words |= phrase_list
 				return
 
 /datum/magic/invoke/misfire(mob/living/firer, amped)

@@ -43,7 +43,7 @@ GLOBAL_DATUM_INIT(blue_fire_track, /datum/blue_fire_tracker, new)
 	var/count = length(SSmagic.all_phrases_list)
 	for(var/i = 1 to count)
 		var/turf/chosen_location = get_safe_random_station_maint_turf()
-		var/obj/effect/blue_fire/what_if_i_have_one = locate() in range(10, chosen_location)
+		var/obj/effect/blue_fire/what_if_i_have_one = locate() in range(8, chosen_location)
 		if(what_if_i_have_one && what_if_i_have_one != src && what_if_i_have_one.who == who)
 			continue
 		new /obj/effect/blue_fire(chosen_location, caller, FALSE, TRUE)
@@ -97,7 +97,12 @@ GLOBAL_DATUM_INIT(blue_fire_track, /datum/blue_fire_tracker, new)
 			if(M.phrase_list[w] in GLOB.blue_fire_track.all_words)
 				GLOB.blue_fire_track.all_words -= M.phrase_list[w]
 				MI = M
-				word = "[w]: [M.phrase_list[w]]"
+				if(M.phrase_list.len == 1 && w == M.phrase_list.len)
+					word = "[MI.name] has only one word: [M.phrase_list[w]]. This spell is now complete!"
+				else if(w == M.phrase_list.len)
+					word = "the last word for \the [MI.name], [w]: [M.phrase_list[w]]"
+				else
+					word = "[w]: [M.phrase_list[w]]"
 				name = MI.name
 				return
 

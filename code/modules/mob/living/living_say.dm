@@ -132,7 +132,6 @@ GLOBAL_LIST_INIT(message_modes_stat_limits, list(
 		return
 
 	if(magic_affinity && !message_mods[WHISPER_MODE] && client && ishuman(src) && try_say_magic(original_message))	// NEBULA START -- magic
-		whisper(message)
 		return															// NEBULA END -- magic
 
 	// Checks if the saymode or channel extension can be used even if not totally conscious.

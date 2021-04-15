@@ -2,16 +2,17 @@
 	var/list/possible_words = list()
 	var/list/phrase_list = list()
 	var/phrase
-	var/uses // for magics with a limited number of uses!
-	var/cooldown_time = 0 // for magic with cooldown! the time of the cooldown for the magic
-	var/cooldown = 0 // the cooldown itself
+	var/uses // for magics with a limited number of uses
+	var/cooldown = 0 // for magic with cooldown
 	var/list/counter_charm // the counter charm of the magic, if any
+	var/whisper = TRUE
+	var/in_order = FALSE // all words in possible words are put in order
 
 /datum/magic/invoke/setup()
 	if(!LAZYLEN(possible_words))
 		return
 
-	if(roundstart)
+	if(in_order || roundstart)
 		var/list/words = possible_words.Copy()
 		var/new_phrase = ""
 		var/new_phrase_list = list()
@@ -23,6 +24,9 @@
 		phrase = new_phrase
 		phrase_list = new_phrase_list
 		log_game("Magic [name] has phrase \"[phrase]\"")
+		if(in_order && !roundstart)
+			SSmagic.all_phrases_list |= phrase_list
+			GLOB.blue_fire_track.all_words |= phrase_list
 		return
 
 	var/done = FALSE
@@ -56,8 +60,8 @@
 /datum/magic/invoke/fire_process(mob/living/firer, datum/magic/invoke/MI)
 	if(MI.check_uses(firer, MI))
 		firer.handle_rejection(MI)
-		firer.log_message("Misfired [name] ([type])", LOG_ATTACK)
-		to_chat(firer, "<span class='danger'>[name] misfired! You can no longer use this magic.</span>")
+		firer.log_message("Misfired [MI.name] ([MI.type])", LOG_ATTACK)
+		to_chat(firer, "<span class='danger'>[MI.name] misfired! You can no longer use this magic.</span>")
 		firer.residual_energy += residual_cost * SSmagic.magical_factor
 		MI.misfire(firer, FALSE)
 		return
@@ -68,9 +72,9 @@
 
 	firer.handle_rejection(MI)
 	firer.log_message("Invoked [MI.name] ([MI.type])", LOG_ATTACK)
-	to_chat(firer, "<span class='notice'>You successfully invoked [MI.name]!</span>")
 	firer.residual_energy += MI.residual_cost * SSmagic.magical_factor
-	MI.fire(firer, FALSE)
+	if(!MI.fire(firer, FALSE))
+		to_chat(firer, "<span class='notice'>You invoked [MI.name]!</span>")
 
 /datum/magic/invoke/misfire_process(mob/living/firer, datum/magic/invoke/MI)
 	firer.handle_rejection(MI)
@@ -92,7 +96,7 @@
 	return FALSE
 
 /datum/magic/invoke/check_cooldown(mob/living/firer, datum/magic/invoke/MI)
-	if(MI.cooldown_time)
+	if(MI.cooldown)
 		for(var/M in firer.cdr_magics)
 			if(M == name)
 				if(firer.cdr_magics[M] > world.time)
@@ -101,6 +105,6 @@
 					break
 			else
 				continue
-		firer.cdr_magics["[name]"] = world.time + MI.cooldown_time
+		firer.cdr_magics["[name]"] = world.time + MI.cooldown
 		return FALSE
 	return FALSE

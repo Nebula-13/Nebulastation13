@@ -11,6 +11,7 @@
 			continue
 		if(MI.counter_charm && (trimmed in MI.counter_charm))
 			MI.counter(src)
+			whisper(msg)
 			return TRUE
 		var/list/split = list()
 		var/ok = TRUE
@@ -24,16 +25,21 @@
 
 		var/diff = length(difflist(MI.phrase_list, split))
 		if(!diff && trimmed == MI.phrase)
+			if(MI.whisper)
+				whisper(msg)
 			MI.fire_process(src, MI)
 			return TRUE
 
 		else if(diff <= MI.max_misfire || (!diff && trimmed != MI.phrase))
+			if(MI.whisper)
+				whisper(msg)
 			MI.misfire_process(src, MI)
 			return TRUE
 
 /mob/living
 	var/residual_energy = 0
 	var/magic_affinity = FALSE
+	var/obj/marked_item
 	var/list/used_magics = list()
 	var/list/cdr_magics = list()
 
@@ -41,6 +47,7 @@
 	. = ..()
 	QDEL_LIST(used_magics)
 	QDEL_LIST(cdr_magics)
+	QDEL_NULL(marked_item)
 
 /mob/living/proc/process_residual_energy()
 	var/static/list/beneficial_clothes = typecacheof(list(

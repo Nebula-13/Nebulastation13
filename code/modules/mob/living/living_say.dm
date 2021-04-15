@@ -131,9 +131,6 @@ GLOBAL_LIST_INIT(message_modes_stat_limits, list(
 	if(stat != DEAD && check_emote(original_message, forced))
 		return
 
-	if(magic_affinity && !message_mods[WHISPER_MODE] && client && ishuman(src) && try_say_magic(original_message))	// NEBULA START -- magic
-		return															// NEBULA END -- magic
-
 	// Checks if the saymode or channel extension can be used even if not totally conscious.
 	var/say_radio_or_mode = saymode || message_mods[RADIO_EXTENSION]
 	if(say_radio_or_mode)
@@ -169,6 +166,9 @@ GLOBAL_LIST_INIT(message_modes_stat_limits, list(
 		else
 			to_chat(src, "<span class='warning'>You find yourself unable to speak!</span>")
 			return
+
+	if(magic_affinity && !message_mods[WHISPER_MODE] && client && ishuman(src) && try_say_magic(original_message))	// NEBULA START -- magic
+		return											// NEBULA END -- magic
 
 	var/message_range = 7
 

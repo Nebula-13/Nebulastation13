@@ -1,7 +1,7 @@
 /datum/smite/tablewide
 	name = "Tablewide"
 
-/datum/smite/tablewide/effect/(client/user, mob/living/target)
+/datum/smite/tablewide/effect(client/user, mob/living/target)
 	. = ..()
 
 	priority_announce(html_decode("[target] has brought the wrath of the gods upon themselves and is now being tableslammed across the station. Please stand by."), null, 'sound/misc/announce.ogg', "CentCom")

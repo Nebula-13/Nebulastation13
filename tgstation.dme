@@ -4164,6 +4164,7 @@
 #include "modular_skyrat\modules\nebula\magic\code\modules\magic\invoke\_invoking.dm"
 #include "modular_skyrat\modules\nebula\magic\code\modules\magic\invoke\basic.dm"
 #include "modular_skyrat\modules\nebula\magic\mob\living\carbon\carbon_magic.dm"
+#include "modular_skyrat\modules\nebula\smite\smite.dm"
 #include "modular_skyrat\modules\mutants\code\mutant_cure.dm"
 #include "modular_skyrat\modules\mutants\code\mutant_datum.dm"
 #include "modular_skyrat\modules\mutants\code\mutant_event.dm"

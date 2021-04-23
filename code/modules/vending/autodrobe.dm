@@ -143,8 +143,9 @@
 					/obj/item/clothing/suit/costume/vic_dresscoat/red = 1,
 					/obj/item/clothing/under/costume/dutch = 1,
 					/obj/item/clothing/under/costume/loincloth/sensor = 1,
-					/obj/item/clothing/under/costume/loincloth/cloth/sensor = 1)	//SKYRAT EDIT ADDITION END
-
+					/obj/item/clothing/under/costume/loincloth/cloth/sensor = 1,	//SKYRAT EDIT ADDITION END
+					/obj/item/clothing/suit/joker = 1,
+					/obj/item/clothing/under/costume/joker = 1)
 	contraband = list(/obj/item/clothing/suit/judgerobe = 1,
 					  /obj/item/clothing/head/powdered_wig = 1,
 					  /obj/item/gun/magic/wand/nothing = 2,

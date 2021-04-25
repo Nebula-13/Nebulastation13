@@ -125,6 +125,7 @@ const taskDm = (...injectedDefines) => new Task('dm')
   .depends('icons/**')
   .depends('interface/**')
   .depends('modular_skyrat/**') // SKYRAT EDIT ADDITION -- check modular_skyrat too pls, build.js
+  .depends('nebula_modular/**') // Nebula edit -- I would also like some of that compiling please kthanksbye
   .depends('tgui/public/tgui.html')
   .depends('tgui/public/*.bundle.*')
   .depends(`${DME_NAME}.dme`)

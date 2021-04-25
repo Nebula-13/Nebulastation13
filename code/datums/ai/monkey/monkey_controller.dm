@@ -70,13 +70,17 @@ have ways of interacting with a specific mob and control it.
 	if(length(enemies) || blackboard[BB_MONKEY_AGRESSIVE]) //We have enemies or are pissed
 
 		var/mob/living/selected_enemy
+		var/list/valid_enemies = list() //nebula edit - slightly smarter monkey ai
 
 		for(var/mob/living/possible_enemy in view(MONKEY_ENEMY_VISION, living_pawn))
 			if(possible_enemy == living_pawn || (!enemies[possible_enemy] && (!blackboard[BB_MONKEY_AGRESSIVE] || HAS_AI_CONTROLLER_TYPE(possible_enemy, /datum/ai_controller/monkey)))) //Are they an enemy? (And do we even care?)
 				continue
-
-			selected_enemy = possible_enemy
-			break
+		//nebula edit start- slightly smarter monkey ai
+			valid_enemies[possible_enemy] = possible_enemy.stat
+		if(valid_enemies.len)
+			sortTim(valid_enemies, associative=TRUE) //sort them by their stat value, prioritizing enemies who are up and can fight back
+			selected_enemy = valid_enemies[1] //lists in byond start at index 1 WHY
+		//nebula edit end
 		if(selected_enemy)
 			if(!selected_enemy.stat) //He's up, get him!
 				if(living_pawn.health < MONKEY_FLEE_HEALTH) //Time to skeddadle

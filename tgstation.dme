@@ -4271,4 +4271,5 @@
 #include "modular_skyrat\modules\verbs\code\modules\mob\say.dm"
 #include "modular_skyrat\modules\verbs\code\modules\mob\subtle.dm"
 #include "modular_skyrat\modules\xenomorph\code\xenomorph_balance.dm"
+#include "nebula_modular\code\mememonkey.dm"
 // END_INCLUDE

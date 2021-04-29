@@ -136,7 +136,12 @@ GLOBAL_VAR_INIT(sec_level_cooldown, FALSE)
 				minor_announce(CONFIG_GET(string/alert_amber_downto), "Attention! Alert level set to amber:", sound = 'modular_skyrat/modules/alerts/sound/misc/voyalert.ogg')
 		if(SEC_LEVEL_RED)
 			if(SSsecurity_level.current_level < SEC_LEVEL_RED)
-				minor_announce(CONFIG_GET(string/alert_red_upto), "Attention! Code red!", TRUE, sound = 'modular_skyrat/modules/alerts/sound/misc/red.ogg')
+				//nebula change - OLHA O MACAAAAAACO
+				if(prob(20))
+					minor_announce(CONFIG_GET(string/alert_red_upto), "Attention! Code red!", TRUE, sound = 'nebula_modular/sound/MACACO.ogg')
+				else
+					minor_announce(CONFIG_GET(string/alert_red_upto), "Attention! Code red!", TRUE, sound = 'modular_skyrat/modules/alerts/sound/misc/red.ogg')
+				//nebula end
 			else
 				minor_announce(CONFIG_GET(string/alert_red_downto), "Attention! Code red!", sound = 'modular_skyrat/modules/alerts/sound/misc/downtoRED.ogg')
 		if(SEC_LEVEL_DELTA)

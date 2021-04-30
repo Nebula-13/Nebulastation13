@@ -413,11 +413,11 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 
 #undef WAVE_COUNT
 
-/turf/open/indestructible/pocketspace/Destroy()
-	. = ..()
-	QDEL_LIST(filters)
+/*/turf/open/indestructible/pocketspace/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
 
-/*/turf/open/indestructible/pocketspace/process()
+/turf/open/indestructible/pocketspace/process()
 	if(next_animate > world.time)
 		return
 	var/i,f

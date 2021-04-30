@@ -64,11 +64,6 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 	if(user.bluespace_fissure)
 		QDEL_NULL(user.bluespace_fissure)
 	var/obj/effect/bluespace_fissure/fissure = new(get_turf(user))
-	fissure.hotelRoomTemp = hotelRoomTemp
-	fissure.hotelRoomTempEmpty = hotelRoomTempEmpty
-	fissure.activeRooms = activeRooms
-	fissure.storedRooms = storedRooms
-	fissure.storageTurf = storageTurf
 	user.bluespace_fissure = fissure
 
 	if(tryActiveRoom(chosenRoomNumber, user))
@@ -138,7 +133,7 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 				qdel(S)
 		storedRooms -= "[roomNumber]"
 		activeRooms["[roomNumber]"] = roomReservation
-		linkTurfs(roomReservation, roomNumber, user)
+		linkTurfs(roomReservation, roomNumber)
 		update_pocket_mirror(roomReservation, user)
 		playsound(user, 'sound/magic/teleport_app.ogg', 50, FALSE)
 		var/atom/movable/pull = user.pulling
@@ -163,7 +158,7 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 	var/datum/turf_reservation/roomReservation = SSmapping.RequestBlockReservation(hotelRoomTemp.width, hotelRoomTemp.height)
 	hotelRoomTemp.load(locate(roomReservation.bottom_left_coords[1], roomReservation.bottom_left_coords[2], roomReservation.bottom_left_coords[3]))
 	activeRooms["[roomNumber]"] = roomReservation
-	linkTurfs(roomReservation, roomNumber, user)
+	linkTurfs(roomReservation, roomNumber)
 	update_pocket_mirror(roomReservation, user)
 	playsound(user, 'sound/magic/teleport_app.ogg', 50, FALSE)
 	var/atom/movable/pull = user.pulling
@@ -181,10 +176,10 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 	if(pull)
 		user.start_pulling(pull)
 
-/datum/magic/invoke/dimension/proc/linkTurfs(datum/turf_reservation/currentReservation, currentRoomnumber, mob/living/user)
+/datum/magic/invoke/dimension/proc/linkTurfs(datum/turf_reservation/currentReservation, currentRoomnumber)
 	var/area/pocket_dimension/currentArea = get_area(locate(currentReservation.bottom_left_coords[1], currentReservation.bottom_left_coords[2], currentReservation.bottom_left_coords[3]))
 	currentArea.name = "Pocket Dimension Room [currentRoomnumber]"
-	currentArea.parentSphere = user.bluespace_fissure
+	currentArea.parentSphere = src
 	currentArea.storageTurf = storageTurf
 	currentArea.roomnumber = currentRoomnumber
 	currentArea.reservation = currentReservation
@@ -283,12 +278,6 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 	anchored = TRUE
 	layer = ABOVE_MOB_LAYER
 
-	var/datum/map_template/pocket_dimension/hotelRoomTemp
-	var/datum/map_template/pocket_dimension/empty/hotelRoomTempEmpty
-	var/list/activeRooms = list()
-	var/list/storedRooms = list()
-	var/storageTurf
-
 /obj/effect/manifestation
 	layer = ABOVE_LIGHTING_PLANE
 	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE
@@ -334,7 +323,7 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	ambientsounds = list('sound/ambience/servicebell.ogg')
 	var/roomnumber = 0
-	var/obj/effect/bluespace_fissure/parentSphere
+	var/datum/magic/invoke/dimension/parentSphere
 	var/datum/turf_reservation/reservation
 	var/turf/storageTurf
 
@@ -434,7 +423,7 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	item_flags = ABSTRACT
 	var/roomNumber
-	var/obj/effect/bluespace_fissure/parentSphere
+	var/datum/magic/invoke/dimension/parentSphere
 
 /obj/item/abstractpocketstorage/Entered(atom/movable/AM, atom/oldLoc)
 	. = ..()

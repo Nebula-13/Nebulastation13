@@ -6,6 +6,7 @@ SUBSYSTEM_DEF(magic)
 	var/join_magic_prob = 40
 	var/list/loaded_magic = list()
 	var/list/all_phrases_list = list()
+	var/wave_effects = FALSE
 
 /datum/controller/subsystem/magic/Initialize()
 	. = ..()

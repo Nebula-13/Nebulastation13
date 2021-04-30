@@ -83,7 +83,7 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 		return
 	playsound(user, 'sound/magic/teleport_diss.ogg', 50, FALSE)
 	var/atom/movable/pull = user.pulling
-	if(pull && ((isobj(pull) && !pull.anchored) || (isliving(pull) && user.grab_state == GRAB_NECK)))
+	if(pull && ((isobj(pull) && !pull.anchored) || (isliving(pull) && user.grab_state == GRAB_AGGRESSIVE)))
 		pull.alpha = 0
 		animate(pull, alpha = 255, time = 2 SECONDS, easing = LINEAR_EASING)
 		pull.forceMove(get_turf(user.bluespace_fissure))
@@ -140,7 +140,7 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 		update_pocket_mirror(roomReservation, user)
 		playsound(user, 'sound/magic/teleport_app.ogg', 50, FALSE)
 		var/atom/movable/pull = user.pulling
-		if(pull && ((isobj(pull) && !pull.anchored) || (isliving(pull) && user.grab_state == GRAB_NECK)))
+		if(pull && ((isobj(pull) && !pull.anchored) || (isliving(pull) && user.grab_state == GRAB_AGGRESSIVE)))
 			pull.alpha = 0
 			animate(pull, alpha = 255, time = 2 SECONDS, easing = LINEAR_EASING)
 			pull.forceMove(locate(roomReservation.bottom_left_coords[1] + hotelRoomTemp.landingZoneRelativeX, roomReservation.bottom_left_coords[2] + hotelRoomTemp.landingZoneRelativeY, roomReservation.bottom_left_coords[3]))
@@ -165,7 +165,7 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 	update_pocket_mirror(roomReservation, user)
 	playsound(user, 'sound/magic/teleport_app.ogg', 50, FALSE)
 	var/atom/movable/pull = user.pulling
-	if(pull && ((isobj(pull) && !pull.anchored) || (isliving(pull) && user.grab_state == GRAB_NECK)))
+	if(pull && ((isobj(pull) && !pull.anchored) || (isliving(pull) && user.grab_state == GRAB_AGGRESSIVE)))
 		pull.alpha = 0
 		animate(pull, alpha = 255, time = 2 SECONDS, easing = LINEAR_EASING)
 		pull.forceMove(locate(roomReservation.bottom_left_coords[1] + hotelRoomTemp.landingZoneRelativeX, roomReservation.bottom_left_coords[2] + hotelRoomTemp.landingZoneRelativeY, roomReservation.bottom_left_coords[3]))
@@ -349,7 +349,7 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 					break
 			if(!stillPopulated)
 				storeRoom()
-				qdel(parentSphere)
+			qdel(parentSphere)
 
 /area/pocket_dimension/proc/storeRoom()
 	var/roomSize = (reservation.top_right_coords[1]-reservation.bottom_left_coords[1]+1)*(reservation.top_right_coords[2]-reservation.bottom_left_coords[2]+1)
@@ -385,11 +385,19 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 	icon = 'icons/turf/space.dmi'
 	icon_state = "0"
 	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE
-	var/next_animate = 0
+	//var/next_animate = 0
 
 /turf/open/indestructible/pocketspace/Initialize()
 	. = ..()
-	var/X,Y,i,rsq
+	animate(src, alpha = 127, time = 3 SECONDS, easing = LINEAR_EASING)
+	if(SSmagic.wave_effects)
+		WaveEffect()
+
+#define WAVE_COUNT 7
+
+/turf/open/indestructible/pocketspace/proc/WaveEffect()
+	var/start = filters.len
+	var/X,Y,i,rsq,f
 	for(i=1, i<=7, ++i)
 		do
 			X = 60*rand() - 30
@@ -397,10 +405,14 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 			rsq = X*X + Y*Y
 		while(rsq<100 || rsq>900)
 		filters += filter(type="wave", x=X, y=Y, size=rand()*2.5+0.5, offset=rand())
-	START_PROCESSING(SSobj, src)
-	animate(src, alpha = 127, time = 3 SECONDS, easing = LINEAR_EASING)
+	for(i=1, i<=7, ++i)
+		f = filters[start+i]
+		animate(f, offset=f:offset, time=0, loop=-1, flags=ANIMATION_PARALLEL)
+		animate(offset=f:offset-1, time=rand()*20+10)
 
-/turf/open/indestructible/pocketspace/Destroy()
+#undef WAVE_COUNT
+
+/*/turf/open/indestructible/pocketspace/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
@@ -413,7 +425,7 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 		var/next = rand()*20+10
 		animate(f, offset=f:offset, time=0, loop=3, flags=ANIMATION_PARALLEL)
 		animate(offset=f:offset-1, time=next)
-		next_animate = world.time + next
+		next_animate = world.time + next*/
 
 /obj/item/abstractpocketstorage
 	anchored = TRUE

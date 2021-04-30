@@ -36,12 +36,12 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 	if(istype(get_area(firer), /area/pocket_dimension))
 		to_chat(firer, "<span class='danger'>You can't use it while inside the pocket dimension!</span>")
 		return TRUE
-	if(do_after(firer, 4 SECONDS, FALSE, firer))
+	if(do_after(firer, 4 SECONDS, firer))
 		firer.whisper(pick("aperi ianuam", "sinum dimensionem", "ostende te"))
 		firer.visible_message("<span class='warning'>[firer] starts distorting the space around it!</span>")
 		var/list/manifestations = list()
 		manifest_dimension(ReservationStorage, firer, manifestations)
-		if(do_after(firer, 7 SECONDS, FALSE, firer))
+		if(do_after(firer, 7 SECONDS, firer))
 			firer.whisper(pick("in utre aquas maris", "ostium revelare", "ipsum revelare"))
 			de_manifest(manifestations)
 			promptAndCheckIn(firer)
@@ -61,8 +61,9 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 	if(!chosenRoomNumber)
 		return
 
+	if(user.bluespace_fissure)
+		QDEL_NULL(user.bluespace_fissure)
 	var/obj/effect/bluespace_fissure/fissure = new(get_turf(user))
-	fissure.alpha = 0
 	fissure.hotelRoomTemp = hotelRoomTemp
 	fissure.hotelRoomTempEmpty = hotelRoomTempEmpty
 	fissure.activeRooms = activeRooms
@@ -76,28 +77,42 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 		return
 	sendToNewRoom(chosenRoomNumber, user)
 
-	fissure.alpha = initial(fissure.alpha)
-
 /datum/magic/invoke/dimension/proc/promptExit(mob/living/user)
 	if(!user.bluespace_fissure)
 		to_chat(user, "<span class='warning'>The portal seems to be malfunctioning and refuses to open!</span>")
 		return
+	playsound(user, 'sound/magic/teleport_diss.ogg', 50, FALSE)
+	var/atom/movable/pull = user.pulling
+	if(pull && ((isobj(pull) && !pull.anchored) || (isliving(pull) && user.grab_state == GRAB_NECK)))
+		pull.alpha = 0
+		animate(pull, alpha = 255, time = 2 SECONDS, easing = LINEAR_EASING)
+		pull.forceMove(get_turf(user.bluespace_fissure))
+		if(isliving(pull))
+			var/mob/living/LL = pull
+			to_chat(LL, "<span class='danger'>All of existence fades out for a moment...</span>")
+			LL.Paralyze(5 SECONDS)
 	user.alpha = 0
 	animate(user, alpha = 255, time = 2 SECONDS, easing = LINEAR_EASING)
 	user.forceMove(get_turf(user.bluespace_fissure))
-	playsound(user, 'sound/magic/teleport_diss.ogg', 50, FALSE)
+	if(pull)
+		user.start_pulling(pull)
 
 /datum/magic/invoke/dimension/proc/tryActiveRoom(roomNumber, mob/living/user)
 	if(activeRooms["[roomNumber]"])
 		var/datum/turf_reservation/roomReservation = activeRooms["[roomNumber]"]
+		update_pocket_mirror(roomReservation, user)
 		playsound(user, 'sound/magic/teleport_app.ogg', 50, FALSE)
 		var/atom/movable/pull = user.pulling
-		if(pull && ((isobj(pull) && !pull.anchored) || (isliving(pull) && user.grab_state == GRAB_NECK)))
+		if(pull && ((isobj(pull) && !pull.anchored) || (isliving(pull) && user.grab_state == GRAB_AGGRESSIVE)))
+			pull.alpha = 0
+			animate(pull, alpha = 255, time = 2 SECONDS, easing = LINEAR_EASING)
 			pull.forceMove(locate(roomReservation.bottom_left_coords[1] + hotelRoomTemp.landingZoneRelativeX, roomReservation.bottom_left_coords[2] + hotelRoomTemp.landingZoneRelativeY, roomReservation.bottom_left_coords[3]))
 			if(isliving(pull))
 				var/mob/living/LL = pull
 				to_chat(LL, "<span class='danger'>All of existence fades out for a moment...</span>")
 				LL.Paralyze(5 SECONDS)
+		user.alpha = 0
+		animate(user, alpha = 255, time = 2 SECONDS, easing = LINEAR_EASING)
 		user.forceMove(locate(roomReservation.bottom_left_coords[1] + hotelRoomTemp.landingZoneRelativeX, roomReservation.bottom_left_coords[2] + hotelRoomTemp.landingZoneRelativeY, roomReservation.bottom_left_coords[3]))
 		if(pull)
 			user.start_pulling(pull)
@@ -122,6 +137,7 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 		storedRooms -= "[roomNumber]"
 		activeRooms["[roomNumber]"] = roomReservation
 		linkTurfs(roomReservation, roomNumber, user)
+		update_pocket_mirror(roomReservation, user)
 		playsound(user, 'sound/magic/teleport_app.ogg', 50, FALSE)
 		var/atom/movable/pull = user.pulling
 		if(pull && ((isobj(pull) && !pull.anchored) || (isliving(pull) && user.grab_state == GRAB_NECK)))
@@ -146,6 +162,7 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 	hotelRoomTemp.load(locate(roomReservation.bottom_left_coords[1], roomReservation.bottom_left_coords[2], roomReservation.bottom_left_coords[3]))
 	activeRooms["[roomNumber]"] = roomReservation
 	linkTurfs(roomReservation, roomNumber, user)
+	update_pocket_mirror(roomReservation, user)
 	playsound(user, 'sound/magic/teleport_app.ogg', 50, FALSE)
 	var/atom/movable/pull = user.pulling
 	if(pull && ((isobj(pull) && !pull.anchored) || (isliving(pull) && user.grab_state == GRAB_NECK)))
@@ -169,7 +186,6 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 	currentArea.storageTurf = storageTurf
 	currentArea.roomnumber = currentRoomnumber
 	currentArea.reservation = currentReservation
-	update_pocket_mirror(currentReservation, user)
 
 /datum/magic/invoke/dimension/proc/ejectRooms()
 	if(activeRooms.len)

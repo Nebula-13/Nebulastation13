@@ -22,8 +22,10 @@
 	for(var/obj/effect/blue_fire/bf in world)
 		if(bf.who == firer)
 			to_chat(firer, "<span class='notice'>You feel something coming from \the <b><font color='#57139b'>[get_area_name(bf, TRUE)]..</font></b></span>")
-			break
+			return
 		continue
+	to_chat(firer, "<span class='danger'>There is no more knowledge to acquire.</span>")
+	return TRUE
 
 // Apparate
 /datum/magic/invoke/apparate

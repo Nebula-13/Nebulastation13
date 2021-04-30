@@ -225,8 +225,8 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 
 //Manifest dimension stuff
 /datum/magic/invoke/dimension/proc/manifest_dimension(datum/turf_reservation/roomReservation, mob/living/user, list/manifestations)
-	var/corrected_max = CLAMP(user.x - 1, 1, world.maxx)
-	var/corrected_may = CLAMP(user.y - 1, 1, world.maxy)
+	var/corrected_max = clamp(user.x - 1, 1, world.maxx)
+	var/corrected_may = clamp(user.y - 1, 1, world.maxy)
 	for(var/mx = 0 to 3)
 		for(var/my = 0 to 3)
 			var/turf/us = locate(corrected_max + mx, corrected_may + my, user.z)
@@ -272,7 +272,7 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 	var/storageTurf
 
 /obj/effect/manifestation
-	layer = ABOVE_LIGHTING_LAYER
+	layer = ABOVE_LIGHTING_PLANE
 	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE
 	alpha = 0
 	mouse_opacity = FALSE
@@ -314,7 +314,7 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 	has_gravity = TRUE
 	area_flags = NOTELEPORT | HIDDEN_AREA
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
-	ambient_effects = list('sound/ambience/servicebell.ogg')
+	ambientsounds = list('sound/ambience/servicebell.ogg')
 	var/roomnumber = 0
 	var/obj/effect/bluespace_fissure/parentSphere
 	var/datum/turf_reservation/reservation

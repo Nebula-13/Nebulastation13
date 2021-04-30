@@ -1,0 +1,107 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"B" = (
+/turf/open/indestructible/pocketspace,
+/area/pocket_dimension)
+"R" = (
+/turf/closed/indestructible/riveted,
+/area/pocket_dimension)
+
+(1,1,1) = {"
+R
+R
+R
+R
+R
+R
+R
+R
+R
+"}
+(2,1,1) = {"
+R
+B
+B
+B
+B
+B
+B
+B
+R
+"}
+(3,1,1) = {"
+R
+B
+B
+B
+B
+B
+B
+B
+R
+"}
+(4,1,1) = {"
+R
+B
+B
+B
+B
+B
+B
+B
+R
+"}
+(5,1,1) = {"
+R
+B
+B
+B
+B
+B
+B
+B
+R
+"}
+(6,1,1) = {"
+R
+B
+B
+B
+B
+B
+B
+B
+R
+"}
+(7,1,1) = {"
+R
+B
+B
+B
+B
+B
+B
+B
+R
+"}
+(8,1,1) = {"
+R
+B
+B
+B
+B
+B
+B
+B
+R
+"}
+(9,1,1) = {"
+R
+R
+R
+R
+R
+R
+R
+R
+R
+"}

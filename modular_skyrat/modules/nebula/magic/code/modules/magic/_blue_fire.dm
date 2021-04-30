@@ -42,10 +42,11 @@ GLOBAL_DATUM_INIT(blue_fire_track, /datum/blue_fire_tracker, new)
 /obj/effect/blue_fire/proc/Generate(mob/caller)
 	var/count = length(SSmagic.all_phrases_list)
 	for(var/i = 1 to count)
+		aqui:
 		var/turf/chosen_location = get_safe_random_station_maint_turf()
-		var/obj/effect/blue_fire/what_if_i_have_one = locate() in range(8, chosen_location)
+		var/obj/effect/blue_fire/what_if_i_have_one = locate() in range(7, chosen_location)
 		if(what_if_i_have_one && what_if_i_have_one != src && what_if_i_have_one.who == who)
-			continue
+			goto aqui
 		new /obj/effect/blue_fire(chosen_location, caller, FALSE, TRUE)
 	GLOB.blue_fire_track.all_words.Cut()
 	GLOB.blue_fire_track.all_words = SSmagic.all_phrases_list.Copy()

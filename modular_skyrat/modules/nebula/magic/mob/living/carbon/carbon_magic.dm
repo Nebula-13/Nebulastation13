@@ -7,12 +7,12 @@
 	var/trimmed = trim(lowertext(msg))
 	var/list/split_pre = splittext(trimmed, " ")
 	for(var/datum/magic/invoke/MI in SSmagic.loaded_magic)
-		if(split_pre.len < MI.complexity)
-			continue
 		if(MI.counter_charm && (trimmed in MI.counter_charm))
 			MI.counter(src)
 			whisper(msg)
 			return TRUE
+		if(split_pre.len < MI.complexity)
+			continue
 		var/list/split = list()
 		var/ok = TRUE
 		for(var/i = 1 to MI.complexity)
@@ -36,10 +36,13 @@
 			MI.misfire_process(src, MI)
 			return TRUE
 
+/datum/mind
+	var/magic_affinity = FALSE
+
 /mob/living
 	var/residual_energy = 0
-	var/magic_affinity = FALSE
 	var/obj/marked_item
+	var/obj/bluespace_fissure
 	var/list/used_magics = list()
 	var/list/cdr_magics = list()
 
@@ -48,6 +51,7 @@
 	QDEL_LIST(used_magics)
 	QDEL_LIST(cdr_magics)
 	QDEL_NULL(marked_item)
+	QDEL_NULL(bluespace_fissure)
 
 /mob/living/proc/process_residual_energy()
 	var/static/list/beneficial_clothes = typecacheof(list(

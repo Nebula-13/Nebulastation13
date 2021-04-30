@@ -171,7 +171,7 @@ GLOBAL_LIST_INIT(message_modes_stat_limits, list(
 			to_chat(src, "<span class='warning'>You find yourself unable to speak!</span>")
 			return
 
-	if(magic_affinity && !message_mods[WHISPER_MODE] && client && ishuman(src) && try_say_magic(original_message))	// NEBULA START -- magic
+	if(mind?.magic_affinity && !message_mods[WHISPER_MODE] && client && ishuman(src) && try_say_magic(original_message))	// NEBULA START -- magic
 		return											// NEBULA END -- magic
 
 	var/message_range = 7

@@ -97,6 +97,8 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 	if(pull)
 		user.start_pulling(pull)
 
+	QDEL_NULL(user.bluespace_fissure)
+
 /datum/magic/invoke/dimension/proc/tryActiveRoom(roomNumber, mob/living/user)
 	if(activeRooms["[roomNumber]"])
 		var/datum/turf_reservation/roomReservation = activeRooms["[roomNumber]"]
@@ -349,8 +351,6 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 					break
 			if(!stillPopulated)
 				storeRoom()
-			if(parentSphere)
-				qdel(parentSphere)
 
 /area/pocket_dimension/proc/storeRoom()
 	var/roomSize = (reservation.top_right_coords[1]-reservation.bottom_left_coords[1]+1)*(reservation.top_right_coords[2]-reservation.bottom_left_coords[2]+1)
@@ -413,11 +413,11 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 
 #undef WAVE_COUNT
 
-/*/turf/open/indestructible/pocketspace/Destroy()
-	STOP_PROCESSING(SSobj, src)
-	return ..()
+/turf/open/indestructible/pocketspace/Destroy()
+	. = ..()
+	QDEL_LIST(filters)
 
-/turf/open/indestructible/pocketspace/process()
+/*/turf/open/indestructible/pocketspace/process()
 	if(next_animate > world.time)
 		return
 	var/i,f

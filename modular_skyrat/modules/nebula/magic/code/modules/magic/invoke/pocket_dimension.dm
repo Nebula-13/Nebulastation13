@@ -349,7 +349,8 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 					break
 			if(!stillPopulated)
 				storeRoom()
-			qdel(parentSphere)
+			if(parentSphere)
+				qdel(parentSphere)
 
 /area/pocket_dimension/proc/storeRoom()
 	var/roomSize = (reservation.top_right_coords[1]-reservation.bottom_left_coords[1]+1)*(reservation.top_right_coords[2]-reservation.bottom_left_coords[2]+1)

@@ -133,7 +133,7 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 				qdel(S)
 		storedRooms -= "[roomNumber]"
 		activeRooms["[roomNumber]"] = roomReservation
-		linkTurfs(roomReservation, roomNumber)
+		linkTurfs(roomReservation, roomNumber, user)
 		update_pocket_mirror(roomReservation, user)
 		playsound(user, 'sound/magic/teleport_app.ogg', 50, FALSE)
 		var/atom/movable/pull = user.pulling
@@ -158,7 +158,7 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 	var/datum/turf_reservation/roomReservation = SSmapping.RequestBlockReservation(hotelRoomTemp.width, hotelRoomTemp.height)
 	hotelRoomTemp.load(locate(roomReservation.bottom_left_coords[1], roomReservation.bottom_left_coords[2], roomReservation.bottom_left_coords[3]))
 	activeRooms["[roomNumber]"] = roomReservation
-	linkTurfs(roomReservation, roomNumber)
+	linkTurfs(roomReservation, roomNumber, user)
 	update_pocket_mirror(roomReservation, user)
 	playsound(user, 'sound/magic/teleport_app.ogg', 50, FALSE)
 	var/atom/movable/pull = user.pulling
@@ -176,13 +176,14 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 	if(pull)
 		user.start_pulling(pull)
 
-/datum/magic/invoke/dimension/proc/linkTurfs(datum/turf_reservation/currentReservation, currentRoomnumber)
+/datum/magic/invoke/dimension/proc/linkTurfs(datum/turf_reservation/currentReservation, currentRoomnumber, mob/living/user)
 	var/area/pocket_dimension/currentArea = get_area(locate(currentReservation.bottom_left_coords[1], currentReservation.bottom_left_coords[2], currentReservation.bottom_left_coords[3]))
 	currentArea.name = "Pocket Dimension Room [currentRoomnumber]"
 	currentArea.parentSphere = src
 	currentArea.storageTurf = storageTurf
 	currentArea.roomnumber = currentRoomnumber
 	currentArea.reservation = currentReservation
+	currentArea.global_turf_object = get_turf(user.bluespace_fissure)
 
 /datum/magic/invoke/dimension/proc/ejectRooms()
 	if(activeRooms.len)

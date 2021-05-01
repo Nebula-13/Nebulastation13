@@ -4,9 +4,9 @@
 	force = 15
 	throwforce = 18
 	sharpness = SHARP_EDGED
-	icon = 'modular_skyrat/modules/nebula/madness/icons/weapons/teguitems.dmi'
-	lefthand_file = 'modular_skyrat/modules/nebula/madness/icons/weapons/teguitems_hold_left.dmi'
-	righthand_file = 'modular_skyrat/modules/nebula/madness/icons/weapons/teguitems_hold_right.dmi'
+	icon = 'nebula_modular/icons/weapons/teguitems.dmi'
+	lefthand_file = 'nebula_modular/icons/weapons/teguitems_hold_left.dmi'
+	righthand_file = 'nebula_modular/icons/weapons/teguitems_hold_right.dmi'
 	icon_state = "roadsign"
 	inhand_icon_state = "roadsign"
 	armour_penetration = 20

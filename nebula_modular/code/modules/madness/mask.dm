@@ -2,8 +2,8 @@
 	name = "clown's protective mask"
 	desc = "Just looking at it fills you with madness."
 	clothing_flags = MASKINTERNALS
-	icon = 'modular_skyrat/modules/nebula/madness/icons/mask_item.dmi'
-	worn_icon = 'modular_skyrat/modules/nebula/madness/icons/mask_worn.dmi'
+	icon = 'nebula_modular/icons/mask_item.dmi'
+	worn_icon = 'nebula_modular/icons/mask_worn.dmi'
 	icon_state = "mad_clown"
 	armor = list(MELEE = 15, BULLET = 5, LASER = 5,ENERGY = 15, BOMB = 5, BIO = 50, RAD = 0, FIRE = 30, ACID = 10)
 	slowdown = -0.25
@@ -12,8 +12,8 @@
 /obj/item/clothing/head/helmet/deimos
 	name = "Deimos's Visor"
 	desc = "You almost feel like a good leader, almost."
-	icon = 'modular_skyrat/modules/nebula/madness/icons/visor_icon.dmi'
-	worn_icon = 'modular_skyrat/modules/nebula/madness/icons/visor.dmi'
+	icon = 'nebula_modular/icons/visor_icon.dmi'
+	worn_icon = 'nebula_modular/icons/visor.dmi'
 	icon_state = "visor"
 	armor = list(MELEE = 30, BULLET = 30, LASER = 30,ENERGY = 30, BOMB = 5, BIO = 50, RAD = 50, FIRE = 50, ACID = 10)
 	resistance_flags = FIRE_PROOF
@@ -23,7 +23,7 @@
 /obj/item/clothing/mask/gas/ATP_Mask
 	name = "ATP Mask"
 	desc = "Made from A.A.H.W, Prepare to locate hank's localization."
-	icon = 'modular_skyrat/modules/nebula/madness/icons/ATP_Icon.dmi'
-	worn_icon = 'modular_skyrat/modules/nebula/madness/icons/ATP_Mask.dmi'
+	icon = 'nebula_modular/icons/ATP_Icon.dmi'
+	worn_icon = 'nebula_modular/icons/ATP_Mask.dmi'
 	icon_state = "ATP"
 	clothing_flags = MASKINTERNALS

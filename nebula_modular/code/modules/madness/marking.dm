@@ -1,6 +1,6 @@
 /datum/body_marking/other/grunt
 	name = "grunt"
-	icon = 'modular_skyrat/modules/nebula/madness/icons/grunt.dmi'
+	icon = 'nebula_modular/icons/grunt.dmi'
 	default_color = "122" //slightly faded ink.
 	recommended_species = null
 	icon_state = "grunt"

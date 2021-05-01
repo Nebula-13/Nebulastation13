@@ -11,7 +11,7 @@
 	var/obj/structure/closet/locker = SSbluespace_locker.external_locker
 	if(locker)
 		var/obj/effect/temp_visual/eye_locator/o = new (get_turf(locker), firer)
-		o.current_image = image('modular_skyrat/modules/nebula/magic/icons/eye.dmi', o, "eye", ABOVE_MOB_LAYER)
+		o.current_image = image('nebula_modular/icons/eye.dmi', o, "eye", ABOVE_MOB_LAYER)
 		o.current_image.alpha = 0
 		firer.client.images |= o.current_image
 		o.set_light(5, 4)
@@ -138,7 +138,7 @@
 
 /obj/projectile/magic/aoe/patronum
 	name = "bolt of patronum"
-	icon = 'modular_skyrat/modules/nebula/magic/icons/patronum.dmi'
+	icon = 'nebula_modular/icons/patronum.dmi'
 	icon_state = "patronum"
 	damage = 6
 	damage_type = BURN

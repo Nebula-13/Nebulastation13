@@ -6,7 +6,7 @@ GLOBAL_DATUM_INIT(blue_fire_track, /datum/blue_fire_tracker, new)
 // Blue fire
 /obj/effect/blue_fire
 	name = "\the invoking magic"
-	icon = 'modular_skyrat/modules/nebula/magic/icons/blue_fire.dmi'
+	icon = 'nebula_modular/icons/blue_fire.dmi'
 	anchored = TRUE
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	invisibility = INVISIBILITY_OBSERVER

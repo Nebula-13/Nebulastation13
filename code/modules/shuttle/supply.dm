@@ -33,7 +33,8 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 		/obj/machinery/camera,
 		/obj/item/gps,
 		/obj/structure/checkoutmachine,
-		/obj/structure/closet/bluespace // SKYRAT EDIT ADDTION -- Bluespace Locker
+		/obj/structure/closet/bluespace, // SKYRAT EDIT ADDTION -- Bluespace Locker
+		/obj/effect/bluespace_fissure // NEBULA EDIT ADDTION -- Bluespace Fissure
 	)))
 
 /// How many goody orders we can fit in a lockbox before we upgrade to a crate

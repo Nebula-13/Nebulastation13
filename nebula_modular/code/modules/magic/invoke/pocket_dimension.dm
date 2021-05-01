@@ -5,6 +5,7 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 	name = "Pocket Dimension"
 	complexity = 5
 	residual_cost = 12
+	whisper = FALSE
 	cooldown = 2 MINUTES
 	possible_words = list("sinum", "excitandus", "patefacio", "sursum", "abditum", "ianua", "ostium", "revelare")
 	counter_charm = list("revenite")

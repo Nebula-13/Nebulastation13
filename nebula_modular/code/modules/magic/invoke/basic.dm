@@ -31,7 +31,7 @@
 /datum/magic/invoke/apparate
 	name = "Apparate"
 	complexity = 1
-	uses = 1
+	cooldown = 10 MINUTES
 	roundstart = TRUE
 	possible_words = list("apparatus")
 

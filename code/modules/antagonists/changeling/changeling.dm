@@ -103,6 +103,7 @@
 			B.organ_flags |= ORGAN_VITAL
 			B.decoy_override = FALSE
 	remove_changeling_powers()
+	. = ..()	// NEBULA EDIT
 
 /datum/antagonist/changeling/proc/reset_properties()
 	changeling_speak = 0

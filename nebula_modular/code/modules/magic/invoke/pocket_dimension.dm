@@ -6,7 +6,7 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 	complexity = 5
 	residual_cost = 12
 	whisper = FALSE
-	cooldown = 2 MINUTES
+	cooldown = 5 SECONDS
 	possible_words = list("sinum", "excitandus", "patefacio", "sursum", "abditum", "ianua", "ostium", "revelare")
 	counter_charm = list("revenite")
 

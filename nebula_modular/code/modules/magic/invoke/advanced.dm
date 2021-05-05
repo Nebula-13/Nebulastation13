@@ -1,9 +1,58 @@
+// Healing
+/datum/magic/invoke/healing
+	name = "Healing"
+	complexity = 1
+	residual_cost = 7
+	cooldown = 5 MINUTES
+	possible_words = list("healing", "heal", "sana", "sanitatem")
+
+/datum/magic/invoke/healing/fire(mob/living/firer)
+	var/mob/living/target
+	var/mob/living/pull = firer.pulling
+	if(pull && isliving(pull) && pull.stat != DEAD)
+		target = pull
+	else
+		target = firer
+
+	if(target != firer && target.stat == DEAD)
+		to_chat(firer, "<span class='warning'>You haven't yet learned how to revive the dead!</span>")
+		return TRUE
+	if(!target.getBruteLoss() && !target.getFireLoss() && !target.getOxyLoss() && !target.getToxLoss())
+		to_chat(firer, "<span class='warning'>[target == firer ? "You are" : "[target] is"] already in a good condition!</span>")
+		return TRUE
+	target.visible_message("<span class='notice'>[target] begins to magically heal [target == firer ? "himself" : target]</span>", "<span class='notice'>You begin to magically heal [target == firer ? "yourself" : target].</span>")
+
+	var/heal = 2
+	var/down = 2
+	var/delay = 3 SECONDS
+	while(TRUE)
+		if(!target.getBruteLoss() && !target.getFireLoss() && !target.getOxyLoss() && !target.getToxLoss())
+			to_chat(firer, "<span class='warning'>[target == firer ? "You are" : "[target] is"] already in a good condition!</span>")
+			break
+		if(!do_after(firer, delay, target = target))
+			to_chat(firer, "<span class='warning'>You stop healing [target == firer ? "yourself" : target].</span>")
+			break
+		target.adjustOxyLoss(-heal, FALSE)
+		target.adjustToxLoss(-heal, FALSE)
+		target.heal_overall_damage(heal, heal)
+		new /obj/effect/temp_visual/heal(get_turf(target), "#80F5FF")
+		if(target == firer)
+			target.adjustStaminaLoss(down)
+			if(target.getStaminaLoss() >= 50)
+				target.SetAllImmobility(down)
+				target.AdjustSleeping(down)
+		heal *= 1.6
+		down *= 1.6
+		delay -= 0.2 SECONDS
+
+	target.visible_message("<span class='notice'>[target] stops magically healing [target == firer ? "himself" : target].</span>", "<span class='notice'>You stop magically healing [target == firer ? "yourself" : target].</span>")
+
 // Bluespace locker locator
 /datum/magic/invoke/bslocator
 	name = "Bluespace Locator"
 	complexity = 4
 	residual_cost = 7
-	uses = 1
+	uses = 5
 	possible_words = list("cogitare", "ostende", "inveniet", "quaerere", "vestium", "dimensionem", "spectrum")
 
 /datum/magic/invoke/bslocator/fire(mob/living/firer)

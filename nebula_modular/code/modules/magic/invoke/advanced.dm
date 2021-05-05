@@ -9,7 +9,7 @@
 /datum/magic/invoke/healing/fire(mob/living/firer)
 	var/mob/living/target
 	var/mob/living/pull = firer.pulling
-	if(pull && isliving(pull) && pull.stat != DEAD)
+	if(pull && isliving(pull))
 		target = pull
 	else
 		target = firer
@@ -20,7 +20,7 @@
 	if(!target.getBruteLoss() && !target.getFireLoss() && !target.getOxyLoss() && !target.getToxLoss())
 		to_chat(firer, "<span class='warning'>[target == firer ? "You are" : "[target] is"] already in a good condition!</span>")
 		return TRUE
-	firer.visible_message("<span class='notice'>[firer] begins to magically heal [target == firer ? "himself" : target]</span>", "<span class='notice'>You begin to magically heal [target == firer ? "yourself" : target].</span>")
+	firer.visible_message("<span class='notice'>[firer] begins to magically heal [target == firer ? "himself" : target].</span>", "<span class='notice'>You begin to magically heal [target == firer ? "yourself" : target].</span>")
 
 	var/heal = 2
 	var/down = 2

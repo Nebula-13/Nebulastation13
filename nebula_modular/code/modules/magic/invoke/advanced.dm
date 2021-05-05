@@ -20,7 +20,7 @@
 	if(!target.getBruteLoss() && !target.getFireLoss() && !target.getOxyLoss() && !target.getToxLoss())
 		to_chat(firer, "<span class='warning'>[target == firer ? "You are" : "[target] is"] already in a good condition!</span>")
 		return TRUE
-	target.visible_message("<span class='notice'>[target] begins to magically heal [target == firer ? "himself" : target]</span>", "<span class='notice'>You begin to magically heal [target == firer ? "yourself" : target].</span>")
+	firer.visible_message("<span class='notice'>[firer] begins to magically heal [target == firer ? "himself" : target]</span>", "<span class='notice'>You begin to magically heal [target == firer ? "yourself" : target].</span>")
 
 	var/heal = 2
 	var/down = 2
@@ -36,16 +36,15 @@
 		target.adjustToxLoss(-heal, FALSE)
 		target.heal_overall_damage(heal, heal)
 		new /obj/effect/temp_visual/heal(get_turf(target), "#80F5FF")
-		if(target == firer)
-			target.adjustStaminaLoss(down)
-			if(target.getStaminaLoss() >= 50)
-				target.SetAllImmobility(down)
-				target.AdjustSleeping(down)
+		firer.adjustStaminaLoss(down)
+		if(firer.getStaminaLoss() >= 50)
+			firer.SetAllImmobility(down)
+			firer.AdjustSleeping(down)
 		heal *= 1.6
 		down *= 1.6
 		delay -= 0.2 SECONDS
 
-	target.visible_message("<span class='notice'>[target] stops magically healing [target == firer ? "himself" : target].</span>", "<span class='notice'>You stop magically healing [target == firer ? "yourself" : target].</span>")
+	firer.visible_message("<span class='notice'>[firer] stops magically healing [target == firer ? "himself" : target].</span>", "<span class='notice'>You stop magically healing [target == firer ? "yourself" : target].</span>")
 
 // Bluespace locker locator
 /datum/magic/invoke/bslocator

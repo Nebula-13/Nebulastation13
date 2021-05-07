@@ -3,7 +3,7 @@
 	name = "Healing"
 	complexity = 1
 	residual_cost = 7
-	cooldown = 5 MINUTES
+	cooldown = 1 MINUTES
 	possible_words = list("healing", "heal", "sana", "sanitatem")
 
 /datum/magic/invoke/healing/fire(mob/living/firer)
@@ -26,8 +26,11 @@
 	var/down = 2
 	var/delay = 3 SECONDS
 	while(TRUE)
+		if(target != firer && target.stat == DEAD)
+			to_chat(firer, "<span class='warning'>You can't heal the dead!</span>")
+			break
 		if(!target.getBruteLoss() && !target.getFireLoss() && !target.getOxyLoss() && !target.getToxLoss())
-			to_chat(firer, "<span class='warning'>[target == firer ? "You are" : "[target] is"] already in a good condition!</span>")
+			to_chat(firer, "<span class='notice'>[target == firer ? "You are" : "[target] is"] in a good condition now!</span>")
 			break
 		if(!do_after(firer, delay, target = target))
 			to_chat(firer, "<span class='warning'>You stop healing [target == firer ? "yourself" : target].</span>")

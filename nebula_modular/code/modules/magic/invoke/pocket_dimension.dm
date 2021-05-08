@@ -34,8 +34,8 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 			storageTurf = GLOB.magicStorageTurf
 
 /datum/magic/invoke/dimension/fire(mob/living/firer, amped)
-	if(istype(get_area(firer), /area/pocket_dimension))
-		to_chat(firer, "<span class='danger'>You can't use it while inside the pocket dimension!</span>")
+	if(istype(get_area(firer), /area/pocket_dimension) || istype(get_area(firer), /area/bluespace_locker))
+		to_chat(firer, "<span class='danger'>You can't use it while inside another dimension!</span>")
 		return TRUE
 	if(do_after(firer, 4 SECONDS, firer))
 		firer.whisper(pick("aperi ianuam", "sinum dimensionem", "ostende te"))
@@ -80,6 +80,9 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 	playsound(user, 'sound/magic/teleport_diss.ogg', 50, FALSE)
 	var/atom/movable/pull = user.pulling
 	if(pull && ((isobj(pull) && !pull.anchored) || (isliving(pull) && user.grab_state == GRAB_AGGRESSIVE)))
+		if(istype(pull, /obj/structure/closet/bluespace/external))
+			pull = null
+			return
 		pull.alpha = 0
 		animate(pull, alpha = 255, time = 2 SECONDS, easing = LINEAR_EASING)
 		pull.forceMove(get_turf(user.bluespace_fissure))
@@ -102,6 +105,9 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 		playsound(user, 'sound/magic/teleport_app.ogg', 50, FALSE)
 		var/atom/movable/pull = user.pulling
 		if(pull && ((isobj(pull) && !pull.anchored) || (isliving(pull) && user.grab_state == GRAB_AGGRESSIVE)))
+			if(istype(pull, /obj/structure/closet/bluespace/external))
+				pull = null
+				return
 			pull.alpha = 0
 			animate(pull, alpha = 255, time = 2 SECONDS, easing = LINEAR_EASING)
 			pull.forceMove(locate(roomReservation.bottom_left_coords[1] + hotelRoomTemp.landingZoneRelativeX, roomReservation.bottom_left_coords[2] + hotelRoomTemp.landingZoneRelativeY, roomReservation.bottom_left_coords[3]))
@@ -139,6 +145,9 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 		playsound(user, 'sound/magic/teleport_app.ogg', 50, FALSE)
 		var/atom/movable/pull = user.pulling
 		if(pull && ((isobj(pull) && !pull.anchored) || (isliving(pull) && user.grab_state == GRAB_AGGRESSIVE)))
+			if(istype(pull, /obj/structure/closet/bluespace/external))
+				pull = null
+				return
 			pull.alpha = 0
 			animate(pull, alpha = 255, time = 2 SECONDS, easing = LINEAR_EASING)
 			pull.forceMove(locate(roomReservation.bottom_left_coords[1] + hotelRoomTemp.landingZoneRelativeX, roomReservation.bottom_left_coords[2] + hotelRoomTemp.landingZoneRelativeY, roomReservation.bottom_left_coords[3]))
@@ -164,6 +173,9 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 	playsound(user, 'sound/magic/teleport_app.ogg', 50, FALSE)
 	var/atom/movable/pull = user.pulling
 	if(pull && ((isobj(pull) && !pull.anchored) || (isliving(pull) && user.grab_state == GRAB_AGGRESSIVE)))
+		if(istype(pull, /obj/structure/closet/bluespace/external))
+			pull = null
+			return
 		pull.alpha = 0
 		animate(pull, alpha = 255, time = 2 SECONDS, easing = LINEAR_EASING)
 		pull.forceMove(locate(roomReservation.bottom_left_coords[1] + hotelRoomTemp.landingZoneRelativeX, roomReservation.bottom_left_coords[2] + hotelRoomTemp.landingZoneRelativeY, roomReservation.bottom_left_coords[3]))
@@ -274,7 +286,7 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 
 //Effects
 /obj/effect/bluespace_fissure
-	name = "bluespace fissure"
+	name = "interdimensional fissure"
 	icon_state = "bluestream_fade"
 	desc = "Seems like an interdimensional portal was opened here.."
 	anchored = TRUE
@@ -403,21 +415,6 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 		animate(offset=f:offset-1, time=rand()*20+10)
 
 #undef WAVE_COUNT
-
-/*/turf/open/indestructible/pocketspace/Destroy()
-	STOP_PROCESSING(SSobj, src)
-	return ..()
-
-/turf/open/indestructible/pocketspace/process()
-	if(next_animate > world.time)
-		return
-	var/i,f
-	for(i=1, i<=7, ++i)
-		f = filters[i]
-		var/next = rand()*20+10
-		animate(f, offset=f:offset, time=0, loop=3, flags=ANIMATION_PARALLEL)
-		animate(offset=f:offset-1, time=next)
-		next_animate = world.time + next*/
 
 /obj/item/abstractpocketstorage
 	anchored = TRUE

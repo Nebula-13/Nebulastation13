@@ -10,6 +10,7 @@ SUBSYSTEM_DEF(magic)
 	var/list/loaded_magic = list()
 	var/list/all_phrases_list = list()
 	var/list/invokers = list()
+	var/let_residual_decay = FALSE
 	var/wave_effects = FALSE
 
 /datum/controller/subsystem/magic/Initialize()
@@ -30,6 +31,9 @@ SUBSYSTEM_DEF(magic)
 			invokers |= C
 
 	process_residuo()
+
+	if(let_residual_decay)
+		residual_decay()
 
 /datum/controller/subsystem/magic/proc/process_stage(stage)
 	if(stage_atual == stage)
@@ -88,6 +92,8 @@ SUBSYSTEM_DEF(magic)
 						H.dna.add_mutation(/datum/mutation/human/mute, MUT_EXTRA, 5 MINUTES)
 
 		if(RESIDUAL_STAGE_4)
+			let_residual_decay = TRUE
+			wait = 2 MINUTES
 			if(prob(50))
 				var/list/center_finder = list()
 				for(var/es in GLOB.generic_event_spawns)
@@ -108,12 +114,17 @@ SUBSYSTEM_DEF(magic)
 	for(var/mob/living/carbon/H in invokers)
 		to_chat(H, "<span class='warning'><b><font color='#57139b'>[message]</font></b></span>")
 
-/datum/controller/subsystem/magic/proc/set_memory(mob/living/user)
-	if(user.mind && SSmagic && SSmagic.initialized)
-		var/turf/chosen_location = get_safe_random_station_turf()
-		new /obj/effect/blue_fire(chosen_location, user, TRUE)
-		var/phrase_text = "You have been blessed with the power to invoke magic! But you feel a strange aurea coming from \the [get_area_name(chosen_location, TRUE)].."
-		return	phrase_text
+/datum/controller/subsystem/magic/proc/residual_decay()
+	if(residual_energy > 0)
+		var/residual_decay = round(length(invokers) * magical_factor)
+		if(residual_decay)
+			residual_energy -= residual_decay
+
+	if(residual_energy <= 0)
+		residual_energy = 0
+		stage_atual = 0
+		let_residual_decay = FALSE
+		wait = 5 MINUTES
 
 /datum/controller/subsystem/magic/proc/process_residuo(amount)
 	if(amount)
@@ -129,6 +140,13 @@ SUBSYSTEM_DEF(magic)
 		if(850 to INFINITY)
 			process_stage(RESIDUAL_STAGE_4)
 
+/datum/controller/subsystem/magic/proc/set_memory(mob/living/user)
+	if(user.mind && SSmagic && SSmagic.initialized)
+		var/turf/chosen_location = get_safe_random_station_turf()
+		new /obj/effect/blue_fire(chosen_location, user, TRUE)
+		var/phrase_text = "You have been blessed with the power to invoke magic! But you feel a strange aurea coming from \the [get_area_name(chosen_location, TRUE)].."
+		return	phrase_text
+
 // Itens / effects / mobs related
 /obj/effect/membrane
 	name = "membrane"
@@ -140,7 +158,7 @@ SUBSYSTEM_DEF(magic)
 	var/to_spawn = /mob/living/simple_animal/hostile/zombie/membrane
 	var/list/spawner_turfs = list()
 	var/spawn_amount = 5
-	var/cooldown = 30 SECONDS
+	var/cooldown = 1 MINUTES
 	var/timer = 0
 
 /obj/effect/membrane/Initialize(mapload)
@@ -168,7 +186,7 @@ SUBSYSTEM_DEF(magic)
 	if(timer > world.time)
 		return
 	var/count = 0
-	for(var/mob/living/simple_animal/hostile/zombie/membrane/m in range(10, src))
+	for(var/mob/living/simple_animal/hostile/zombie/membrane/m in range(12, src))
 		count++
 	if(count < spawn_amount)
 		new to_spawn(get_turf(pick(spawner_turfs)))

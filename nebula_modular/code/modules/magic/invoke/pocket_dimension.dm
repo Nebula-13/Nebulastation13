@@ -80,9 +80,6 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 	playsound(user, 'sound/magic/teleport_diss.ogg', 50, FALSE)
 	var/atom/movable/pull = user.pulling
 	if(pull && ((isobj(pull) && !pull.anchored) || (isliving(pull) && user.grab_state == GRAB_AGGRESSIVE)))
-		if(istype(pull, /obj/structure/closet/bluespace/external))
-			pull = null
-			return
 		pull.alpha = 0
 		animate(pull, alpha = 255, time = 2 SECONDS, easing = LINEAR_EASING)
 		pull.forceMove(get_turf(user.bluespace_fissure))
@@ -104,10 +101,9 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 		update_pocket_mirror(roomReservation, user)
 		playsound(user, 'sound/magic/teleport_app.ogg', 50, FALSE)
 		var/atom/movable/pull = user.pulling
+		if(pull && istype(pull, /obj/structure/closet/bluespace/external))
+			pull = null
 		if(pull && ((isobj(pull) && !pull.anchored) || (isliving(pull) && user.grab_state == GRAB_AGGRESSIVE)))
-			if(istype(pull, /obj/structure/closet/bluespace/external))
-				pull = null
-				return
 			pull.alpha = 0
 			animate(pull, alpha = 255, time = 2 SECONDS, easing = LINEAR_EASING)
 			pull.forceMove(locate(roomReservation.bottom_left_coords[1] + hotelRoomTemp.landingZoneRelativeX, roomReservation.bottom_left_coords[2] + hotelRoomTemp.landingZoneRelativeY, roomReservation.bottom_left_coords[3]))
@@ -144,10 +140,9 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 		update_pocket_mirror(roomReservation, user)
 		playsound(user, 'sound/magic/teleport_app.ogg', 50, FALSE)
 		var/atom/movable/pull = user.pulling
+		if(pull && istype(pull, /obj/structure/closet/bluespace/external))
+			pull = null
 		if(pull && ((isobj(pull) && !pull.anchored) || (isliving(pull) && user.grab_state == GRAB_AGGRESSIVE)))
-			if(istype(pull, /obj/structure/closet/bluespace/external))
-				pull = null
-				return
 			pull.alpha = 0
 			animate(pull, alpha = 255, time = 2 SECONDS, easing = LINEAR_EASING)
 			pull.forceMove(locate(roomReservation.bottom_left_coords[1] + hotelRoomTemp.landingZoneRelativeX, roomReservation.bottom_left_coords[2] + hotelRoomTemp.landingZoneRelativeY, roomReservation.bottom_left_coords[3]))
@@ -172,10 +167,9 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 	update_pocket_mirror(roomReservation, user)
 	playsound(user, 'sound/magic/teleport_app.ogg', 50, FALSE)
 	var/atom/movable/pull = user.pulling
+	if(pull && istype(pull, /obj/structure/closet/bluespace/external))
+		pull = null
 	if(pull && ((isobj(pull) && !pull.anchored) || (isliving(pull) && user.grab_state == GRAB_AGGRESSIVE)))
-		if(istype(pull, /obj/structure/closet/bluespace/external))
-			pull = null
-			return
 		pull.alpha = 0
 		animate(pull, alpha = 255, time = 2 SECONDS, easing = LINEAR_EASING)
 		pull.forceMove(locate(roomReservation.bottom_left_coords[1] + hotelRoomTemp.landingZoneRelativeX, roomReservation.bottom_left_coords[2] + hotelRoomTemp.landingZoneRelativeY, roomReservation.bottom_left_coords[3]))

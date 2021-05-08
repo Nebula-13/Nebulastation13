@@ -153,9 +153,22 @@
 	counter_charm = null
 
 /datum/magic/invoke/lumos/solem/fire(mob/living/firer)
-	for(var/mob/living/carbon/C in viewers(firer.loc))
-		C.flash_act(6, 1, visual = TRUE)
-		if(!C == firer)
-			C.visible_message("<span class='danger'>[firer] flashed [C] with magic!</span>", \
-							"<span class='userdanger'>[firer] flashed you with magic!</span>", null, COMBAT_MESSAGE_RANGE)
+	for(var/mob/living/L in viewers(firer.loc))
+		if(L == firer)
+			continue
+		if(iscarbon(L))
+			var/mob/living/carbon/C = L
+			log_combat(firer, C, "flashed", src)
+			C.flash_act(6, 1, TRUE)
+			C.add_confusion(6)
+			C.visible_message("<span class='danger'>[firer] blinds [C] with magic!</span>", \
+							"<span class='userdanger'>[firer] blinded you with magic!</span>", null, COMBAT_MESSAGE_RANGE)
+		if(issilicon(L))
+			var/mob/living/silicon/robot/B = L
+			log_combat(firer, B, "flashed", src)
+			B.flash_act(6, 1, TRUE)
+			B.Paralyze(rand(15, 30))
+			B.add_confusion(6)
+			B.visible_message("<span class='warning'>[firer] overloads [B]'s sensors with magic!</span>", \
+								"<span class='danger'>You overload [B]'s sensors with magic!</span>")
 	playsound(firer, 'sound/magic/charge.ogg', 50, TRUE)

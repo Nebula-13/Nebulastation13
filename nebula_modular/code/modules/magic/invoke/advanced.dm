@@ -77,7 +77,7 @@
 		for(var/obj/item in hand_items)
 			if(!item)
 				continue
-			item.throw_at(user, rand(4, 6), rand(3, 4))
+			item.throw_at(user, rand(4, 6), rand(2, 3))
 		H.visible_message("<span class='danger'>[user] disarmed [target]!</span>", \
 							"<span class='userdanger'>[user] disarmed you!</span>", null, COMBAT_MESSAGE_RANGE)
 	return TRUE
@@ -153,7 +153,7 @@
 		var/mob/living/simple_animal/revenant/M = target
 		M.visible_message("<span class='warning'>[M] violently flinches!</span>", \
 						"<span class='revendanger'>As \the [src] passes through you, you feel your essence draining away!</span>")
-		M.adjustBruteLoss(45)
+		M.adjustBruteLoss(60)
 		M.inhibited = TRUE
 		M.update_action_buttons_icon()
 		addtimer(CALLBACK(M, /mob/living/simple_animal/revenant.proc/reset_inhibit), 30)
@@ -162,12 +162,30 @@
 		var/mob/living/simple_animal/shade/M
 		M.visible_message("<span class='warning'>[M] violently flinches!</span>", \
 						"<span class='userdanger'>[src] passes through you, damaging from the inside out!</span>")
-		M.adjustBruteLoss(45)
+		M.adjustBruteLoss(60)
+
+	if(iscarbon(target))
+		var/mob/living/carbon/L = target
+		var/atom/throw_target = get_edge_target_turf(target, firer.dir)
+		L.Paralyze(10)
+		L.adjustFireLoss(25)
+		L.throw_at(throw_target, rand(1, 3), rand(3, 4), firer)
+
+	if(issilicon(target))
+		var/mob/living/silicon/robot/B = target
+		log_combat(firer, B, "flashed", src)
+		B.flash_act(1, 1, TRUE)
+		B.Paralyze(rand(15, 25))
+		B.add_confusion(6)
+		B.visible_message("<span class='warning'>[firer] overloads [B]'s sensors with magic!</span>", \
+							"<span class='danger'>You overload [B]'s sensors with magic!</span>")
 
 	for(var/mob/living/carbon/H in viewers(get_turf(loc)))
+		if(H == firer)
+			continue
 		H.flash_act(1, 1)
-		if(!H == firer)
-			H.soundbang_act(1, 2, 0, 5)
+		H.soundbang_act(1, 3, 1, 5)
+
 	visible_message("<span class='warning'>[src] disappears in the air in contact with [target]!</span>")
 
 // Accio

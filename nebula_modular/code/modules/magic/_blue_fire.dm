@@ -8,6 +8,7 @@ GLOBAL_DATUM_INIT(blue_fire_track, /datum/blue_fire_tracker, new)
 	name = "\the invoking magic"
 	icon = 'nebula_modular/icons/blue_fire.dmi'
 	anchored = TRUE
+	layer = ABOVE_MOB_LAYER
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	invisibility = INVISIBILITY_OBSERVER
 	light_color = "#3399ff"
@@ -56,7 +57,7 @@ GLOBAL_DATUM_INIT(blue_fire_track, /datum/blue_fire_tracker, new)
 		to_chat(user, "<span class='notice'>You touch the blue fire and it dissipates into the air making a flash.. Look for more blue fires in maintenance to gain knowledge about spells.</span>")
 		var/mob/living/carbon/H = user
 		playsound(src, 'sound/magic/teleport_app.ogg', 50, TRUE)
-		H.flash_act(1, 1)
+		H.flash_act(1, 1, visual = TRUE)
 		do_sparks(1, TRUE, src)
 		qdel(src)
 		return
@@ -66,7 +67,7 @@ GLOBAL_DATUM_INIT(blue_fire_track, /datum/blue_fire_tracker, new)
 	to_chat(user, "<span class='notice'>You touch the blue fire and it dissipates into the air leaving a word in a sequence.. <b><font color='#57139b'>[word]</font></b></span>")
 	playsound(src, pick('sound/magic/teleport_app.ogg', 'sound/magic/teleport_diss.ogg'), 50, TRUE)
 	var/mob/living/carbon/H = user
-	H.flash_act(1, 1)
+	H.flash_act(1, 1, visual = TRUE)
 	do_sparks(1, TRUE, src)
 	qdel(src)
 

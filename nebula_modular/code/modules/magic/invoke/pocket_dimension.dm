@@ -4,6 +4,7 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 /datum/magic/invoke/dimension
 	name = "Pocket Dimension"
 	complexity = 5
+	mana_cost = 30
 	residual_cost = 12
 	whisper = FALSE
 	cooldown = 5 SECONDS

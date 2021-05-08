@@ -5,7 +5,7 @@
 	var/uses // for magics with a limited number of uses
 	var/cooldown = 0 // for magic with cooldown
 	var/list/counter_charm // the counter charm of the magic, if any
-	var/whisper = TRUE
+	var/whisper = TRUE // whisper when invoking or a silent invocation?
 	var/in_order = FALSE // all words in possible words are put in order
 
 /datum/magic/invoke/setup()
@@ -58,11 +58,14 @@
 	firer.IgniteMob()
 
 /datum/magic/invoke/fire_process(mob/living/firer, datum/magic/invoke/MI)
+	if(!MI.use_mana(firer, MI))
+		return
+
 	if(MI.check_uses(firer, MI))
 		firer.handle_rejection(MI)
 		firer.log_message("Misfired [MI.name] ([MI.type])", LOG_ATTACK)
 		to_chat(firer, "<span class='danger'>[MI.name] misfired! You can no longer use this magic.</span>")
-		firer.residual_energy += residual_cost * SSmagic.magical_factor
+		SSmagic.process_residuo(MI.residual_cost)
 		MI.misfire(firer, FALSE)
 		return
 
@@ -72,7 +75,7 @@
 
 	firer.handle_rejection(MI)
 	firer.log_message("Invoked [MI.name] ([MI.type])", LOG_ATTACK)
-	firer.residual_energy += MI.residual_cost * SSmagic.magical_factor
+	SSmagic.process_residuo(MI.residual_cost)
 	if(!MI.fire(firer, FALSE))
 		to_chat(firer, "<span class='notice'>You invoked [MI.name]!</span>")
 
@@ -80,8 +83,22 @@
 	firer.handle_rejection(MI)
 	firer.log_message("Misfired [MI.name] ([MI.type])", LOG_ATTACK)
 	to_chat(firer, "<span class='danger'>You failed to invoke [MI.name]!</span>")
-	firer.residual_energy += MI.residual_cost * SSmagic.magical_factor
+	SSmagic.process_residuo(MI.residual_cost)
 	MI.misfire(firer, FALSE)
+
+/datum/magic/invoke/use_mana(mob/living/firer, datum/magic/invoke/MI, amount)
+	if(!amount)
+		amount = MI.mana_cost
+	if(amount > firer.mana_max)
+		to_chat(firer, "<span class='warning'>It looks like you don't have enough mana capacity for this magic.</span>")
+		firer.log_message("Misfired [MI.name] ([MI.type])", LOG_ATTACK)
+		MI.misfire(firer, TRUE)
+		return FALSE
+	if(amount > firer.mana)
+		to_chat(firer, "<span class='warning'>You don't have enough mana!</span>")
+		return FALSE
+	firer.mana -= amount
+	return TRUE
 
 /datum/magic/invoke/check_uses(mob/living/firer, datum/magic/invoke/MI)
 	if(MI.uses)

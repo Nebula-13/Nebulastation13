@@ -40,11 +40,17 @@
 	var/magic_affinity = FALSE
 
 /mob/living
-	var/residual_energy = 0
+	var/mana_max = 0
+	var/mana = 0
 	var/obj/marked_item
 	var/obj/bluespace_fissure
 	var/list/used_magics = list()
 	var/list/cdr_magics = list()
+
+/mob/living/carbon/Initialize()
+	. = ..()
+	mana_max = rand(MANA_MIN, MANA_MAX)
+	mana = mana_max
 
 /mob/living/Destroy()
 	. = ..()
@@ -92,14 +98,25 @@
 		return TRUE
 	return FALSE
 
-/mob/living/handle_status_effects()
+/*/mob/living/handle_status_effects()
 	. = ..()
 	if(residual_energy > 0)
 		var/residual_decay = process_residual_energy()
 		if(residual_decay)
 			if(SSmagic && SSmagic.initialized)
 				residual_decay *= SSmagic.magical_factor
-			residual_energy = max(residual_energy - residual_decay, 0)
+			residual_energy = max(residual_energy - residual_decay, 0)*/
+
+/mob/living/carbon/Life(delta_time, times_fired)
+	. = ..()
+	if(.)
+		if(mana_max && mana < mana_max)
+			var/flat = MANA_REGEN
+			if(IsSleeping())
+				flat += MANA_REGEN_EXTRA
+			mana += round(flat + (mana/MANA_REGEN_COEFF) * MANA_REGEN_MULTIPLIER)
+			if(mana > mana_max)
+				mana = mana_max
 
 /mob/living/carbon/handle_rejection(datum/magic/MI) //
 	. = ..()

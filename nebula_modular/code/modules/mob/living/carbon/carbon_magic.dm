@@ -98,15 +98,6 @@
 		return TRUE
 	return FALSE
 
-/*/mob/living/handle_status_effects()
-	. = ..()
-	if(residual_energy > 0)
-		var/residual_decay = process_residual_energy()
-		if(residual_decay)
-			if(SSmagic && SSmagic.initialized)
-				residual_decay *= SSmagic.magical_factor
-			residual_energy = max(residual_energy - residual_decay, 0)*/
-
 /mob/living/carbon/Life(delta_time, times_fired)
 	. = ..()
 	if(.)
@@ -121,7 +112,8 @@
 /mob/living/carbon/handle_rejection(datum/magic/MI) //
 	. = ..()
 	if(.)
-		vomit(FALSE, TRUE, FALSE, rand(1, 3))
+		if(prob(40))
+			vomit(FALSE, TRUE, FALSE, rand(1, 3))
 
 /mob/living/carbon/human/handle_rejection(datum/magic/MI)
 	. = ..()

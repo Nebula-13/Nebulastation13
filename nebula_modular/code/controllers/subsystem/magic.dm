@@ -39,7 +39,8 @@ SUBSYSTEM_DEF(magic)
 	switch(stage)
 		if(RESIDUAL_STAGE_1)
 			for(var/mob/living/carbon/H in invokers)
-				H.adjustOrganLoss(ORGAN_SLOT_BRAIN, rand(6, 12) * magical_factor)
+				if(prob(40))
+					H.adjustOrganLoss(ORGAN_SLOT_BRAIN, rand(6, 12) * magical_factor)
 				H.AddComponent(/datum/component/omen, silent=TRUE)
 				message = "You feel a shiver down your spine as the magical residue increases.."
 
@@ -50,7 +51,7 @@ SUBSYSTEM_DEF(magic)
 					new /mob/living/simple_animal/hostile/cockroach/leech(get_turf(H))
 				else
 					if(prob(40))
-						H.vomit(20, TRUE, FALSE)
+						H.vomit(20, FALSE, FALSE)
 
 		if(RESIDUAL_STAGE_3)
 			for(var/mob/living/carbon/H in invokers)
@@ -58,14 +59,12 @@ SUBSYSTEM_DEF(magic)
 					var/n = 1
 					for(var/V in H.held_items)
 						var/obj/item/I = V
-						if(istype(I))
-							H.dropItemToGround(I)
-						else
+						if(istype(I) && H.dropItemToGround(I))
 							H.put_in_hands(new /obj/item/putrid_hand())
 							var/obj/item/bodypart/B = H.hand_bodyparts[n]
 							B.receive_damage(100)
 							addtimer(CALLBACK(B, /obj/item/bodypart./proc/dismember), 2 MINUTES)
-							to_chat(H, "<span class='warning'>Your arm has been corrupted due to the high level of magical residue!</span>")
+							to_chat(H, "<span class='warning'>Your arm has been corrupted due to the high level of magical residue! Be careful, your arm will fall soon.</span>")
 							break
 						n++
 				else
@@ -89,16 +88,17 @@ SUBSYSTEM_DEF(magic)
 						H.dna.add_mutation(/datum/mutation/human/mute, MUT_EXTRA, 5 MINUTES)
 
 		if(RESIDUAL_STAGE_4)
-			var/list/center_finder = list()
-			for(var/es in GLOB.generic_event_spawns)
-				var/obj/effect/landmark/event_spawn/temp = es
-				if(is_station_level(temp.z))
-					center_finder += temp
-			if(!center_finder.len)
-				CRASH("No landmarks on the station map, aborting")
-			var/turf/location = get_turf(pick(center_finder))
-			new /obj/effect/membrane(location)
-			priority_announce("WARNING - Due to the high amount of residual energy concentrated in this sector, a fissure in the membrane was opened in \the [get_area_name(location, TRUE)]!", "Alert", 'sound/misc/notice1.ogg')
+			if(prob(50))
+				var/list/center_finder = list()
+				for(var/es in GLOB.generic_event_spawns)
+					var/obj/effect/landmark/event_spawn/temp = es
+					if(is_station_level(temp.z))
+						center_finder += temp
+				if(!center_finder.len)
+					CRASH("No landmarks on the station map, aborting")
+				var/turf/location = get_turf(pick(center_finder))
+				new /obj/effect/membrane(location)
+				priority_announce("WARNING - Due to the high amount of residual energy concentrated in this sector, a fissure in the membrane was opened in \the [get_area_name(location, TRUE)]!", "Alert", 'sound/misc/notice1.ogg')
 			for(var/mob/living/carbon/H in invokers)
 				H.vomit(20, TRUE, FALSE)
 				H.Jitter(20)
@@ -168,7 +168,7 @@ SUBSYSTEM_DEF(magic)
 	if(timer > world.time)
 		return
 	var/count = 0
-	for(var/mob/living/simple_animal/hostile/zombie/membrane/m in get_area(src))
+	for(var/mob/living/simple_animal/hostile/zombie/membrane/m in range(10, src))
 		count++
 	if(count < spawn_amount)
 		new to_spawn(get_turf(pick(spawner_turfs)))

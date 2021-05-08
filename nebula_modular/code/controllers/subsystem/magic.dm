@@ -30,6 +30,10 @@ SUBSYSTEM_DEF(magic)
 		if(C.stat != DEAD && C.mind && C.mind.magic_affinity && !(C in invokers))
 			invokers |= C
 
+	for(var/mob/living/carbon/C in invokers)
+		if(C.stat == DEAD)
+			invokers -= C
+
 	process_residuo()
 
 	if(let_residual_decay)

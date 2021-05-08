@@ -9,16 +9,29 @@
 
 /datum/magic/invoke/sparks/fire(mob/living/firer, amped)
 	do_sparks(amped ? 6 : 3, TRUE, firer)
-	firer.reagents.add_reagent(/datum/reagent/consumable/nuka_cola, 5)
-	firer.reagents.add_reagent(/datum/reagent/medicine/synaptizine, 10)
+	firer.add_movespeed_modifier(/datum/movespeed_modifier/reagent/nuka_cola)
+	if(iscarbon(firer))
+		var/mob/living/carbon/F = firer
+		F.Jitter(20 * REAGENTS_EFFECT_MULTIPLIER)
+		F.set_drugginess(30 * REAGENTS_EFFECT_MULTIPLIER)
+		F.dizziness += 1.5 * REAGENTS_EFFECT_MULTIPLIER
+		F.drowsyness = 0
+		F.AdjustSleeping(-40 * REAGENTS_EFFECT_MULTIPLIER)
+		F.adjust_bodytemperature(-5 * REAGENTS_EFFECT_MULTIPLIER * TEMPERATURE_DAMAGE_COEFFICIENT, F.get_body_temp_normal())
+		F.AdjustStun(-20 * REAGENTS_EFFECT_MULTIPLIER)
+		F.AdjustKnockdown(-20 * REAGENTS_EFFECT_MULTIPLIER)
+		F.AdjustUnconscious(-20 * REAGENTS_EFFECT_MULTIPLIER)
+		F.AdjustImmobilized(-20 * REAGENTS_EFFECT_MULTIPLIER)
+		F.AdjustParalyzed(-20 * REAGENTS_EFFECT_MULTIPLIER)
+		F.adjustStaminaLoss(-30 * REAGENTS_EFFECT_MULTIPLIER)
+	addtimer(CALLBACK(firer, /mob/.proc/remove_movespeed_modifier, /datum/movespeed_modifier/reagent/nuka_cola), 15 SECONDS)
 
 // Magic Locator
 /datum/magic/invoke/locator
 	name = "Magic Locator"
 	complexity = 1
 	cooldown = 2 MINUTES
-	roundstart = TRUE
-	possible_words = list("locate")
+	possible_words = list("locate", "invenio")
 
 /datum/magic/invoke/locator/fire(mob/living/firer)
 	for(var/obj/effect/blue_fire/bf in world)
@@ -34,7 +47,7 @@
 	name = "Apparate"
 	complexity = 1
 	mana_cost = 50
-	residual_cost = 15
+	residual_cost = 20
 	cooldown = 10 MINUTES
 	roundstart = TRUE
 	possible_words = list("apparatus")
@@ -42,66 +55,9 @@
 /datum/magic/invoke/apparate/fire(mob/living/firer)
 	do_teleport(firer, get_turf(firer), 15, asoundin = 'sound/magic/enter_blood.ogg', asoundout = 'sound/magic/exit_blood.ogg', channel = TELEPORT_CHANNEL_MAGIC, no_effects = TRUE)
 
-// Healing
-/datum/magic/invoke/healing
-	name = "Healing"
-	complexity = 1
-	mana_cost = 23
-	residual_cost = 7
-	cooldown = 1 MINUTES
-	possible_words = list("healing", "heal", "sana", "sanitatem")
-
-/datum/magic/invoke/healing/fire(mob/living/firer)
-	var/mob/living/target
-	var/mob/living/pull = firer.pulling
-	if(pull && isliving(pull))
-		target = pull
-	else
-		target = firer
-
-	if(target != firer && target.stat == DEAD)
-		to_chat(firer, "<span class='warning'>You haven't yet learned how to revive the dead!</span>")
-		return TRUE
-	if(!target.getBruteLoss() && !target.getFireLoss() && !target.getOxyLoss() && !target.getToxLoss())
-		to_chat(firer, "<span class='warning'>[target == firer ? "You are" : "[target] is"] already in a good condition!</span>")
-		return TRUE
-	firer.visible_message("<span class='notice'>[firer] begins to magically heal [target == firer ? "himself" : target].</span>", "<span class='notice'>You begin to magically heal [target == firer ? "yourself" : target].</span>")
-
-	var/mana = 2
-	var/heal = 2
-	var/down = 2
-	var/delay = 3 SECONDS
-	while(TRUE)
-		if(!use_mana(firer, src, mana))
-			to_chat(firer, "<span class='warning'>You're out of mana!</span>")
-			break
-		if(target != firer && target.stat == DEAD)
-			to_chat(firer, "<span class='warning'>You can't heal the dead!</span>")
-			break
-		if(!target.getBruteLoss() && !target.getFireLoss() && !target.getOxyLoss() && !target.getToxLoss())
-			to_chat(firer, "<span class='notice'>[target == firer ? "You are" : "[target] is"] in a good condition now!</span>")
-			break
-		if(!do_after(firer, delay, target = target))
-			to_chat(firer, "<span class='warning'>You stop healing [target == firer ? "yourself" : target].</span>")
-			break
-		target.adjustOxyLoss(-heal, FALSE)
-		target.adjustToxLoss(-heal, FALSE)
-		target.heal_overall_damage(heal, heal)
-		new /obj/effect/temp_visual/heal(get_turf(target), "#80F5FF")
-		firer.adjustStaminaLoss(down)
-		if(firer.getStaminaLoss() >= 50)
-			firer.SetAllImmobility(down)
-			firer.AdjustSleeping(down)
-		mana *= 1.6
-		heal *= 1.6
-		down *= 1.6
-		delay -= 0.2 SECONDS
-
-	firer.visible_message("<span class='notice'>[firer] stops magically healing [target == firer ? "himself" : target].</span>", "<span class='notice'>You stop magically healing [target == firer ? "yourself" : target].</span>")
-
 // Lumos - and their variants
 /datum/magic/invoke/lumos
-	name = "Lumos" // that reference
+	name = "Lumos"
 	complexity = 1
 	roundstart = TRUE
 	cooldown = 10 MINUTES
@@ -172,3 +128,26 @@
 			B.visible_message("<span class='warning'>[firer] overloads [B]'s sensors with magic!</span>", \
 								"<span class='danger'>You overload [B]'s sensors with magic!</span>")
 	playsound(firer, 'sound/magic/charge.ogg', 50, TRUE)
+
+// Stealth
+/datum/magic/invoke/stealth
+	name = "Stealth"
+	complexity = 1
+	mana_cost = 25
+	residual_cost = 15
+	cooldown = 10 MINUTES
+	whisper = FALSE
+	possible_words = list("evadere", "evanescet")
+
+/datum/magic/invoke/stealth/fire(mob/living/firer)
+	var/mob/living/simple_animal/hostile/illusion/escape/decoy = new(firer.loc)
+	decoy.Copy_Parent(firer, 50)
+	decoy.GiveTarget(firer)
+	decoy.Goto(firer, decoy.move_to_delay, 12)
+	firer.alpha = 0
+	playsound(firer.loc, 'sound/magic/smoke.ogg', 50)
+	addtimer(CALLBACK(src, .proc/end_stealth, firer), 6 SECONDS)
+
+/datum/magic/invoke/stealth/proc/end_stealth(mob/living/firer)
+	animate(firer, alpha = initial(firer.alpha), time = 2 SECONDS)
+	firer.visible_message("<span class='notice'>[firer] appears out of nowhere!</span>")

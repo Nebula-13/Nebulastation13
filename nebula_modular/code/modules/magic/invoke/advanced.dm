@@ -1,3 +1,60 @@
+// Healing
+/datum/magic/invoke/healing
+	name = "Healing"
+	complexity = 1
+	mana_cost = 23
+	residual_cost = 7
+	cooldown = 1 MINUTES
+	possible_words = list("healing", "heal", "sana", "sanitatem")
+
+/datum/magic/invoke/healing/fire(mob/living/firer)
+	var/mob/living/target
+	var/mob/living/pull = firer.pulling
+	if(pull && isliving(pull))
+		target = pull
+	else
+		target = firer
+
+	if(target != firer && target.stat == DEAD)
+		to_chat(firer, "<span class='warning'>You haven't yet learned how to revive the dead!</span>")
+		return TRUE
+	if(!target.getBruteLoss() && !target.getFireLoss() && !target.getOxyLoss() && !target.getToxLoss())
+		to_chat(firer, "<span class='warning'>[target == firer ? "You are" : "[target] is"] already in a good condition!</span>")
+		return TRUE
+	firer.visible_message("<span class='notice'>[firer] begins to magically heal [target == firer ? "himself" : target].</span>", "<span class='notice'>You begin to magically heal [target == firer ? "yourself" : target].</span>")
+
+	var/mana = 2
+	var/heal = 2
+	var/down = 2
+	var/delay = 3 SECONDS
+	while(TRUE)
+		if(!use_mana(firer, src, mana))
+			to_chat(firer, "<span class='warning'>You're out of mana!</span>")
+			break
+		if(target != firer && target.stat == DEAD)
+			to_chat(firer, "<span class='warning'>You can't heal the dead!</span>")
+			break
+		if(!target.getBruteLoss() && !target.getFireLoss() && !target.getOxyLoss() && !target.getToxLoss())
+			to_chat(firer, "<span class='notice'>[target == firer ? "You are" : "[target] is"] in a good condition now!</span>")
+			break
+		if(!do_after(firer, delay, target = target))
+			to_chat(firer, "<span class='warning'>You stop healing [target == firer ? "yourself" : target].</span>")
+			break
+		target.adjustOxyLoss(-heal, FALSE)
+		target.adjustToxLoss(-heal, FALSE)
+		target.heal_overall_damage(heal, heal)
+		new /obj/effect/temp_visual/heal(get_turf(target), "#80F5FF")
+		firer.adjustStaminaLoss(down)
+		if(firer.getStaminaLoss() >= 50)
+			firer.SetAllImmobility(down)
+			firer.AdjustSleeping(down)
+		mana *= 1.6
+		heal *= 1.6
+		down *= 1.6
+		delay -= 0.2 SECONDS
+
+	firer.visible_message("<span class='notice'>[firer] stops magically healing [target == firer ? "himself" : target].</span>", "<span class='notice'>You stop magically healing [target == firer ? "yourself" : target].</span>")
+
 // Bluespace locker locator
 /datum/magic/invoke/bslocator
 	name = "Bluespace Locator"
@@ -167,9 +224,9 @@
 	if(iscarbon(target))
 		var/mob/living/carbon/L = target
 		var/atom/throw_target = get_edge_target_turf(target, firer.dir)
-		L.Paralyze(10)
+		L.Paralyze(9)
 		L.adjustFireLoss(25)
-		L.throw_at(throw_target, rand(1, 3), rand(3, 4), firer)
+		L.throw_at(throw_target, rand(2, 3), rand(3, 4), firer)
 
 	if(issilicon(target))
 		var/mob/living/silicon/robot/B = target
@@ -181,10 +238,9 @@
 							"<span class='danger'>You overload [B]'s sensors with magic!</span>")
 
 	for(var/mob/living/carbon/H in viewers(get_turf(loc)))
-		if(H == firer)
-			continue
 		H.flash_act(1, 1)
-		H.soundbang_act(1, 3, 1, 5)
+		if(H != firer)
+			H.soundbang_act(1, 3, 1, 5)
 
 	visible_message("<span class='warning'>[src] disappears in the air in contact with [target]!</span>")
 

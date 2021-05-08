@@ -155,7 +155,9 @@ SUBSYSTEM_DEF(magic)
 	icon_state = "rift"
 	density = TRUE
 	anchored = TRUE
-	var/to_spawn = /mob/living/simple_animal/hostile/zombie/membrane
+	var/list/to_spawn = list(/mob/living/simple_animal/hostile/zombie/membrane, /mob/living/simple_animal/hostile/faithless,
+							/mob/living/simple_animal/hostile/poison/giant_spider, /mob/living/simple_animal/hostile/poison/giant_spider/hunter,
+							/mob/living/simple_animal/hostile/blob/blobbernaut, /mob/living/simple_animal/hostile/netherworld)
 	var/list/spawner_turfs = list()
 	var/spawn_amount = 5
 	var/cooldown = 1 MINUTES
@@ -171,7 +173,8 @@ SUBSYSTEM_DEF(magic)
 		if(!length(spawner_turfs))
 			break
 		var/turf/spawner_turf = pick(spawner_turfs)
-		new to_spawn(spawner_turf)
+		var/picked_mob = pick(to_spawn)
+		new picked_mob(spawner_turf)
 
 	START_PROCESSING(SSobj, src)
 
@@ -186,10 +189,11 @@ SUBSYSTEM_DEF(magic)
 	if(timer > world.time)
 		return
 	var/count = 0
-	for(var/mob/living/simple_animal/hostile/zombie/membrane/m in range(12, src))
+	for(var/mob/living/simple_animal/hostile/m in range(12, src))
 		count++
 	if(count < spawn_amount)
-		new to_spawn(get_turf(pick(spawner_turfs)))
+		var/picked_mob = pick(to_spawn)
+		new picked_mob(get_turf(pick(spawner_turfs)))
 	timer = world.time + cooldown
 
 /obj/effect/membrane/attackby(obj/item/I, mob/user, params)

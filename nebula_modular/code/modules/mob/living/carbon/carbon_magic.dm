@@ -112,11 +112,11 @@
 /mob/living/carbon/handle_rejection(datum/magic/MI) //
 	. = ..()
 	if(.)
-		if(prob(40))
+		if(prob(60))
 			vomit(FALSE, TRUE, FALSE, rand(1, 3))
 
 /mob/living/carbon/human/handle_rejection(datum/magic/MI)
 	. = ..()
 	if(.)
 		bleed(5 * SSmagic.magical_factor * 0.6)
-		physiology.bleed_mod = max(physiology.bleed_mod + (0.5 * SSmagic.magical_factor), 0.5 * SSmagic.magical_factor)
+		//physiology.bleed_mod = max(physiology.bleed_mod + (0.5 * SSmagic.magical_factor), 0.5 * SSmagic.magical_factor)

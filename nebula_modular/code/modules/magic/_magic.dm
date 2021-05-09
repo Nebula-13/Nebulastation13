@@ -35,7 +35,3 @@
 	if(firer.mana <= 30)
 		to_chat(firer, "<span class='warning'>You are almost out of mana!</span>")
 		return TRUE
-	if(SSmagic?.residual_energy >= 250)
-		if(prob(70))
-			to_chat(firer, "<span class='warning'>The magic residue is too high!</span>")
-			return TRUE

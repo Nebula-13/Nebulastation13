@@ -60,22 +60,33 @@
 	name = "Lumos"
 	complexity = 1
 	roundstart = TRUE
-	cooldown = 10 MINUTES
+	cooldown = 1 SECONDS
 	possible_words = list("lumos")
 	counter_charm = list("nox")
-	var/obj/effect/dummy/luminescent_glow/glow
-	var/timerid
+	var/glow = /obj/effect/dummy/luminescent_glow
 
 /datum/magic/invoke/lumos/fire(mob/living/firer)
-	glow = new(firer)
-	glow.set_light_range_power_color(3, 2, "#767ef0")
-	timerid = QDEL_IN(glow, 5 MINUTES)
+	if(locate(glow) in firer)
+		to_chat(firer, "<span class='warning'>You are already using Lumos!</span>")
+		return TRUE
+	new glow(firer)
+	var/obj/effect/dummy/luminescent_glow/lumo = locate(glow) in firer
+	lumo.set_light_range_power_color(3.1, 2, "#969ceb")
+	to_chat(firer, "<span class='notice'>You invoked Lumos!</span>")
+	while(TRUE)
+		lumo = locate(glow) in firer
+		if(!lumo)
+			break
+		if(do_after(firer, 1 SECONDS, timed_action_flags = (IGNORE_USER_LOC_CHANGE|IGNORE_HELD_ITEM|IGNORE_INCAPACITATED), progress = FALSE))
+			if(!use_mana(firer, src, 1.2))
+				qdel(lumo)
+				break
+	return TRUE
 
 /datum/magic/invoke/lumos/counter(mob/living/firer)
-	glow = locate() in firer
-	if(glow)
-		deltimer(timerid)
-		qdel(glow)
+	var/obj/effect/dummy/luminescent_glow/lumo = locate(glow) in firer
+	if(lumo)
+		qdel(lumo)
 	else
 		to_chat(firer, "<span class='danger'>You need to invoke Lumos in order to use this.</span>")
 
@@ -89,9 +100,9 @@
 	possible_words = list("lumos", "maxima")
 
 /datum/magic/invoke/lumos/maxima/fire(mob/living/firer)
-	glow = locate() in firer
-	if(glow)
-		glow.set_light_range_power_color(5, 3, "#767ef0")
+	var/obj/effect/dummy/luminescent_glow/lumo = locate(glow) in firer
+	if(lumo)
+		lumo.set_light_range_power_color(5, 3, "#969ceb")
 	else
 		to_chat(firer, "<span class='danger'>You need to invoke Lumos in order to use this.</span>")
 		return TRUE
@@ -115,16 +126,16 @@
 		if(iscarbon(L))
 			var/mob/living/carbon/C = L
 			log_combat(firer, C, "flashed", src)
-			C.flash_act(6, 1, TRUE)
-			C.add_confusion(6)
+			C.flash_act(6, 1, TRUE, TRUE)
+			C.add_confusion(7)
 			C.visible_message("<span class='danger'>[firer] blinds [C] with magic!</span>", \
 							"<span class='userdanger'>[firer] blinded you with magic!</span>", null, COMBAT_MESSAGE_RANGE)
 		if(issilicon(L))
 			var/mob/living/silicon/robot/B = L
 			log_combat(firer, B, "flashed", src)
-			B.flash_act(6, 1, TRUE)
-			B.Paralyze(rand(15, 30))
-			B.add_confusion(6)
+			B.flash_act(6, 1, TRUE, TRUE)
+			B.Paralyze(rand(10, 25))
+			B.add_confusion(7)
 			B.visible_message("<span class='warning'>[firer] overloads [B]'s sensors with magic!</span>", \
 								"<span class='danger'>You overload [B]'s sensors with magic!</span>")
 	playsound(firer, 'sound/magic/charge.ogg', 50, TRUE)

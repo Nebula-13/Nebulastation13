@@ -34,10 +34,10 @@ SUBSYSTEM_DEF(magic)
 		if(C.stat == DEAD)
 			invokers -= C
 
-	process_residuo()
-
 	if(let_residual_decay)
 		residual_decay()
+	else
+		process_residuo()
 
 /datum/controller/subsystem/magic/proc/process_stage(stage)
 	if(stage_atual == stage)
@@ -46,13 +46,19 @@ SUBSYSTEM_DEF(magic)
 	var/message = pick("You feel a shiver down your spine.. the magical residue is increasing!", "A chill runs down your spine as the magical residue increses..")
 	switch(stage)
 		if(RESIDUAL_STAGE_1)
+			if(!let_residual_decay && prob(20))
+				let_residual_decay = TRUE
+				wait = 2 MINUTES
 			for(var/mob/living/carbon/H in invokers)
 				if(prob(40))
-					H.adjustOrganLoss(ORGAN_SLOT_BRAIN, rand(6, 12) * magical_factor)
+					H.adjustOrganLoss(ORGAN_SLOT_BRAIN, rand(3, 6) * magical_factor)
 				H.AddComponent(/datum/component/omen, silent=TRUE)
 				message = "You feel a shiver down your spine as the magical residue increases.."
 
 		if(RESIDUAL_STAGE_2)
+			if(!let_residual_decay && prob(30))
+				let_residual_decay = TRUE
+				wait = 2 MINUTES
 			for(var/mob/living/carbon/H in invokers)
 				if(prob(60))
 					H.vomit(15, TRUE, FALSE)
@@ -62,8 +68,11 @@ SUBSYSTEM_DEF(magic)
 						H.vomit(20, FALSE, FALSE)
 
 		if(RESIDUAL_STAGE_3)
+			if(!let_residual_decay && prob(40))
+				let_residual_decay = TRUE
+				wait = 2 MINUTES
 			for(var/mob/living/carbon/H in invokers)
-				if(prob(30))
+				if(prob(20))
 					var/n = 1
 					for(var/V in H.held_items)
 						var/obj/item/I = V
@@ -76,7 +85,7 @@ SUBSYSTEM_DEF(magic)
 							break
 						n++
 				else
-					if(prob(40))
+					if(prob(30))
 						var/obj/item/organ/tongue/tongue
 						for(var/org in H.internal_organs)
 							if(istype(org, /obj/item/organ/tongue))
@@ -94,10 +103,13 @@ SUBSYSTEM_DEF(magic)
 						tongue.name = "rotting tongue"
 						tongue.icon_state = "tonguezombie"
 						H.dna.add_mutation(/datum/mutation/human/mute, MUT_EXTRA, 5 MINUTES)
+					else
+						H.vomit(20, TRUE, FALSE)
 
 		if(RESIDUAL_STAGE_4)
-			let_residual_decay = TRUE
-			wait = 2 MINUTES
+			if(!let_residual_decay)
+				let_residual_decay = TRUE
+				wait = 2 MINUTES
 			if(prob(50))
 				var/list/center_finder = list()
 				for(var/es in GLOB.generic_event_spawns)

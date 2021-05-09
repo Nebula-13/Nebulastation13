@@ -50,7 +50,7 @@
 			firer.AdjustSleeping(down)
 		mana *= 1.6
 		heal *= 1.6
-		down *= 1.6
+		down *= 1.5
 		delay -= 0.2 SECONDS
 
 	firer.visible_message("<span class='notice'>[firer] stops magically healing [target == firer ? "himself" : target].</span>", "<span class='notice'>You stop magically healing [target == firer ? "yourself" : target].</span>")

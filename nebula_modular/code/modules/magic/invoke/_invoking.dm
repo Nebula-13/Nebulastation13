@@ -54,7 +54,7 @@
 				return
 
 /datum/magic/invoke/misfire(mob/living/firer, amped)
-	firer.fire_stacks += amped ? 5 : 2
+	firer.fire_stacks += amped ? 4 : 2
 	firer.IgniteMob()
 
 /datum/magic/invoke/fire_process(mob/living/firer, datum/magic/invoke/MI)

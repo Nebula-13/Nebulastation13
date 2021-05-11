@@ -365,3 +365,59 @@
   thestubborn:
   - bugfix: 'added the new collars to the dorms vendor qol: added blue gloves to medidrobe,
       two only, get em fast'
+2021-05-10:
+  Cheshify:
+  - bugfix: Fixed a single wall in Metastation perma, that didn't have an area
+  Melbert:
+  - bugfix: You no longer eat all botany plants plants in 1 bite. Apples and Potatos
+      retain their unique 1 bite behavior.
+  - code_imp: Botany plants use a new formula for calculating bite size. All botany
+      plants have had their bite modifier adjusted to match.
+  Ryll/Shaps:
+  - bugfix: Changeling stings once again require you to be within range of your target
+      and have a direct path from you to the target
+  SkyratBot:
+  - bugfix: Purchasing classic or mjolnir loadouts as the wizard will no longer crash
+      the server.
+  - bugfix: you can now map infinitely huge plumbing networks
+  - bugfix: blood filters no longer tell everyone that the listener's blood is being
+      filtered
+  Twaticus, Imaginos16:
+  - imageadd: Resprites (almost) all base floor tiles.
+  - imageadd: Ports smooth tiles & textured versions of grey, black, and white tiles.
+  - imageadd: Dance floor item icons are no longer massive.
+  thestubborn:
+  - rscadd: The trenchcloak is not back, as a toggle of the spawn hos coat. Fucking
+      hate this shit. But the item exists, ahelp for it I guess...
+  - rscadd: Red scrubs.
+  - rscadd: A hat for shorter traitors.
+  uomo91:
+  - bugfix: Civil Disputes Officer no longer requires medical playtime.
+2021-05-11:
+  FlamingLily:
+  - spellcheck: Changed up some alt titles for prisoners.
+  JJRcop:
+  - server: Default Drone hours without config set reduced from 40 to 14. Please set
+      DRONE_ROLE_PLAYTIME to 40 if you wish to retain old behavior.
+  JJRcop, ninjanomnom:
+  - bugfix: Drones now respect USE_EXP_RESTRICTIONS_ADMIN_BYPASS
+  KathrinBailey:
+  - rscadd: Stone walls with full auto-smoothing are now in the game.
+  SkyratBot:
+  - rscadd: Fantasy Prefix for poisoned weapons
+  - bugfix: Many things that would trigger on attacking someone even if you didn't
+      successfully land a hit now only trigger when you do
+  - refactor: Poisonous is an element, no more terrible pathing /poison/ woop woop
+  - refactor: Udders are now a component, all of it!
+  - refactor: Rewrite the way we handle which roles get assigned with playtime tracking.
+  - bugfix: Players who get MMI'd and put into borgs or AIs mid-shift now gain job
+      playtime tracking towards Silicon roles instead.
+  - imageadd: Fixes magic shoes and gives them a magical twinkling star decal.
+  - bugfix: "Fixes processing items \U0001F400"
+  Snakebittenn & Candle:
+  - rscadd: Adds the Zolmach language, and Zolmalchi culture, for demon and demon-adjacent
+      characters.
+  hack fraud:
+  - rscadd: plushies, yay
+  unit0016:
+  - rscadd: A multitude of ruins have been added to rotation.

@@ -172,7 +172,7 @@ SUBSYSTEM_DEF(magic)
 	density = TRUE
 	anchored = TRUE
 	var/list/to_spawn = list(/mob/living/simple_animal/hostile/zombie/membrane, /mob/living/simple_animal/hostile/faithless,
-							/mob/living/simple_animal/hostile/poison/giant_spider, /mob/living/simple_animal/hostile/poison/giant_spider/hunter,
+							/mob/living/simple_animal/hostile/giant_spider, /mob/living/simple_animal/hostile/giant_spider/hunter,
 							/mob/living/simple_animal/hostile/blob/blobbernaut, /mob/living/simple_animal/hostile/netherworld)
 	var/list/spawner_turfs = list()
 	var/spawn_amount = 5

@@ -120,3 +120,10 @@
 	if(.)
 		bleed(5 * SSmagic.magical_factor * 0.6)
 		//physiology.bleed_mod = max(physiology.bleed_mod + (0.5 * SSmagic.magical_factor), 0.5 * SSmagic.magical_factor)
+
+/mob/living/say(message, bubble_type, list/spans, sanitize, datum/language/language, ignore_spam, forced)
+	if(findtext(message, "pq"))
+		message = replacetext(message, "pq", "porque")
+	if(findtext(message, "vc"))
+		message = replacetext(message, "vc", "você")
+	. = ..()

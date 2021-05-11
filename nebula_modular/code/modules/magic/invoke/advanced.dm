@@ -105,6 +105,7 @@
 	mana_cost = 30
 	residual_cost = 15
 	cooldown = 15 MINUTES
+	roundstart = TRUE
 	whisper = FALSE
 	possible_words = list("expelliarmus")
 
@@ -162,7 +163,7 @@
 	mana_cost = 40
 	residual_cost = 20
 	cooldown = 10 MINUTES
-	in_order = TRUE
+	roundstart = TRUE
 	whisper = FALSE
 	possible_words = list("expectro", "patronum")
 
@@ -267,6 +268,7 @@
 	mana_cost = 20
 	residual_cost = 10
 	cooldown = 2 MINUTES
+	roundstart = TRUE
 	possible_words = list("accio")
 	var/allow_change = FALSE
 

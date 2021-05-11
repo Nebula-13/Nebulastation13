@@ -120,8 +120,6 @@
 	mana_cost = 30
 	residual_cost = 10
 	cooldown = 8 MINUTES
-	roundstart = FALSE
-	in_order = TRUE
 	possible_words = list("lumos", "solem")
 	counter_charm = null
 
@@ -169,3 +167,57 @@
 /datum/magic/invoke/stealth/proc/end_stealth(mob/living/firer)
 	animate(firer, alpha = initial(firer.alpha), time = 2 SECONDS)
 	firer.visible_message("<span class='notice'>[firer] appears out of nowhere!</span>")
+
+// Arcane Barrage
+/datum/magic/invoke/barrage
+	name = "Arcane Barrage"
+	desc = "Creates an arcane barrier that prevents enemies from passing through."
+	complexity = 2
+	mana_cost = 20
+	residual_cost = 10
+	cooldown = 6 MINUTES
+	possible_words = list("arcane", "obice", "murus", "reconditus")
+	var/wall_type = /obj/effect/forcefield/arcane
+
+/datum/magic/invoke/barrage/fire(mob/living/firer)
+	playsound(firer, 'sound/magic/forcewall.ogg', 50, TRUE)
+	new wall_type(get_turf(firer), firer)
+	if(firer.dir == SOUTH || firer.dir == NORTH)
+		new wall_type(get_step(firer, EAST), firer)
+		new wall_type(get_step(firer, WEST), firer)
+	else
+		new wall_type(get_step(firer, NORTH), firer)
+		new wall_type(get_step(firer, SOUTH), firer)
+
+/obj/effect/forcefield/arcane
+	name = "arcane barrier"
+	desc = "An arcane barrier"
+	timeleft = 30 SECONDS
+	CanAtmosPass = ATMOS_PASS_NO
+	var/mob/living/user
+
+/obj/effect/forcefield/arcane/Initialize(mapload, mob/living/summoner)
+	. = ..()
+	user = summoner
+	var/turf/local = get_turf(loc)
+	ADD_TRAIT(local, TRAIT_FIREDOOR_STOP, TRAIT_GENERIC)
+	air_update_turf(TRUE, TRUE)
+
+/obj/effect/forcefield/arcane/BlockSuperconductivity()
+	return TRUE
+
+/obj/effect/forcefield/arcane/CanAllowThrough(atom/movable/mover, turf/target)
+	. = ..()
+	if(mover == user)
+		return TRUE
+	if(ismob(mover))
+		var/mob/M = mover
+		if(M.anti_magic_check(chargecost = 0))
+			return TRUE
+
+/obj/effect/forcefield/arcane/Destroy()
+	. = ..()
+	var/turf/local = get_turf(loc)
+	REMOVE_TRAIT(local, TRAIT_FIREDOOR_STOP, TRAIT_GENERIC)
+	air_update_turf(TRUE, FALSE)
+	return ..()

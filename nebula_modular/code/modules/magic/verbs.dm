@@ -47,3 +47,30 @@
 		data["magics"] = null
 
 	return data
+
+/client/proc/add_magic_affinity()
+	set category = "Admin.Fun"
+	set name = "Add Magic Affinity"
+	set desc = "Adds magic affinity to a player"
+
+	if(!SSmagic && !SSmagic.initialized)
+		to_chat(usr, "<span class='warning'>The magic subsystem has not been initialized yet!</span>")
+		return
+
+	var/list/players = list()
+
+	for(var/mob/living/P in GLOB.mob_living_list)
+		if(P.mind && P.client && !P.mind.magic_affinity)
+			players |= P
+
+	var/mob/living/selection = input("Select a player to add magic affinity", "Magic affinity", null, null) as null|anything in players
+
+	if(!selection || !(selection in players))
+		return
+
+	selection.mind.store_memory(SSmagic.set_memory(selection))
+	selection.mind.magic_affinity = TRUE
+	SSmagic.invokers += selection
+
+	log_admin("[key_name(usr)] added magic affinity to [selection]")
+	message_admins("[key_name_admin(usr)] added magic affinity to [selection]")

@@ -1,6 +1,7 @@
 // Summon Sparks
 /datum/magic/invoke/sparks
 	name = "Summon Sparks"
+	desc = "Gives the user speed and stun resistance for a short period of time."
 	complexity = 3
 	mana_cost = 15
 	residual_cost = 6
@@ -29,6 +30,7 @@
 // Magic Locator
 /datum/magic/invoke/locator
 	name = "Magic Locator"
+	desc = "Reveals the location of a random spell's word."
 	complexity = 1
 	cooldown = 2 MINUTES
 	possible_words = list("locate", "invenio")
@@ -45,6 +47,7 @@
 // Apparate
 /datum/magic/invoke/apparate
 	name = "Apparate"
+	desc = "Teleports the user to some random location."
 	complexity = 1
 	mana_cost = 50
 	residual_cost = 20
@@ -58,6 +61,7 @@
 // Lumos - and their variants
 /datum/magic/invoke/lumos
 	name = "Lumos"
+	desc = "Conjures light around the user, useful if you don't have another light source. Consumes mana continuously. Saying \"nox\" ends the effect."
 	complexity = 1
 	roundstart = TRUE
 	cooldown = 1 SECONDS
@@ -93,6 +97,7 @@
 // Lumox Maxima
 /datum/magic/invoke/lumos/maxima
 	name = "Lumos Maxima"
+	desc = "Increases the light of Lumos."
 	complexity = 2
 	mana_cost = 20
 	residual_cost = 8
@@ -110,6 +115,7 @@
 // Lumos Solem
 /datum/magic/invoke/lumos/solem
 	name = "Lumos Solem"
+	desc = "Conjures a beam of light that blinds and confuses enemies around you."
 	complexity = 2
 	mana_cost = 30
 	residual_cost = 10
@@ -143,6 +149,7 @@
 // Stealth
 /datum/magic/invoke/stealth
 	name = "Stealth"
+	desc = "Using a magic trick, you create a clone and remain invisible for a short time. Useful to escape and outwit your enemies."
 	complexity = 1
 	mana_cost = 25
 	residual_cost = 15

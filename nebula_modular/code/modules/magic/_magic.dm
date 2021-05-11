@@ -1,5 +1,6 @@
 /datum/magic
 	var/name
+	var/desc
 	var/complexity = 1
 	var/max_misfire = 1
 	var/residual_cost = 5

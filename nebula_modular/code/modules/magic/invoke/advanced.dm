@@ -1,6 +1,7 @@
 // Healing
 /datum/magic/invoke/healing
 	name = "Healing"
+	desc = "Using mana and stamina, the user can heal himself or someone he is grabbing."
 	complexity = 1
 	mana_cost = 23
 	residual_cost = 7
@@ -58,6 +59,7 @@
 // Bluespace locker locator
 /datum/magic/invoke/bslocator
 	name = "Bluespace Locator"
+	desc = "Shows the user the position of the bluespace locker."
 	complexity = 4
 	mana_cost = 15
 	residual_cost = 7
@@ -98,6 +100,7 @@
 // Expelliarmus
 /datum/magic/invoke/expelliarmus
 	name = "Expelliarmus"
+	desc = "Takes an object out of a target's hand."
 	complexity = 1
 	mana_cost = 30
 	residual_cost = 15
@@ -137,6 +140,7 @@
 			item.throw_at(user, rand(4, 6), rand(2, 3))
 		H.visible_message("<span class='danger'>[user] disarmed [target]!</span>", \
 							"<span class='userdanger'>[user] disarmed you!</span>", null, COMBAT_MESSAGE_RANGE)
+	qdel(src)
 	return TRUE
 
 /obj/effect/proc_holder/spell/aimed/expelliarmus/cast_check(skipcharge, mob/user = usr)
@@ -153,6 +157,7 @@
 // Expectro Patronum
 /datum/magic/invoke/patronum
 	name = "Expectro Patronum"
+	desc = "Using ancient magic, the user conjures and shoots a ball of energy that kills any type of spirit."
 	complexity = 2
 	mana_cost = 40
 	residual_cost = 20
@@ -185,6 +190,10 @@
 /obj/effect/proc_holder/spell/aimed/patronum/process(delta_time)
 	return
 
+/obj/effect/proc_holder/spell/aimed/patronum/fire_projectile(mob/living/user, atom/target)
+	. = ..()
+	qdel(src)
+
 /obj/effect/proc_holder/spell/aimed/patronum/cast_check(skipcharge, mob/user = usr)
 	if(user.stat && !stat_allowed)
 		to_chat(user, "<span class='notice'>Not when you're incapacitated.</span>")
@@ -213,19 +222,25 @@
 		M.adjustBruteLoss(60)
 		M.inhibited = TRUE
 		M.update_action_buttons_icon()
-		addtimer(CALLBACK(M, /mob/living/simple_animal/revenant.proc/reset_inhibit), 30)
+		addtimer(CALLBACK(M, /mob/living/simple_animal/revenant.proc/reset_inhibit), 5 SECONDS)
 
 	if(isshade(target))
-		var/mob/living/simple_animal/shade/M
+		var/mob/living/simple_animal/shade/M = target
 		M.visible_message("<span class='warning'>[M] violently flinches!</span>", \
 						"<span class='userdanger'>[src] passes through you, damaging from the inside out!</span>")
-		M.adjustBruteLoss(60)
+		M.adjustBruteLoss(rand(60, 80))
+
+	if(isconstruct(target))
+		var/mob/living/simple_animal/hostile/construct/M = target
+		M.visible_message("<span class='warning'>[M] violently flinches!</span>", \
+						"<span class='userdanger'>[src] passes through you, damaging from the inside out!</span>")
+		M.adjustBruteLoss(rand(60, 80))
 
 	if(iscarbon(target))
 		var/mob/living/carbon/L = target
 		var/atom/throw_target = get_edge_target_turf(target, firer.dir)
 		L.Paralyze(9)
-		L.adjustFireLoss(25)
+		L.adjustFireLoss(rand(25, 30))
 		L.throw_at(throw_target, rand(2, 3), rand(3, 4), firer)
 
 	if(issilicon(target))
@@ -247,6 +262,7 @@
 // Accio
 /datum/magic/invoke/accio
 	name = "Accio"
+	desc = "Casting once marks an object forever, casting a second time returns the object to the user's hand."
 	complexity = 1
 	mana_cost = 20
 	residual_cost = 10

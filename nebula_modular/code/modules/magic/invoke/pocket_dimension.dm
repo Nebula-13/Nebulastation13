@@ -3,6 +3,7 @@ GLOBAL_VAR_INIT(magicStorageTurf, null)
 // Pocket Dimension
 /datum/magic/invoke/dimension
 	name = "Pocket Dimension"
+	desc = "Conjures and teleports the user to his own dimension, leaving a fissure in his place. Saying \"revenite\" will bring you back to the world."
 	complexity = 5
 	mana_cost = 30
 	residual_cost = 12

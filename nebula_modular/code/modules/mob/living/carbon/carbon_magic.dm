@@ -109,6 +109,35 @@
 			if(mana > mana_max)
 				mana = mana_max
 
+		if(mind?.magic_affinity && hud_used?.mana && mana != mana_max)
+			if(mana >= mana_max-10)
+				hud_used.mana.icon_state = "10"
+			else if(mana >= mana_max*0.9)
+				hud_used.mana.icon_state = "9"
+			else if(mana >= mana_max*0.8)
+				hud_used.mana.icon_state = "8"
+			else if(mana >= mana_max*0.7)
+				hud_used.mana.icon_state = "7"
+			else if(mana >= mana_max*0.6)
+				hud_used.mana.icon_state = "6"
+			else if(mana >= mana_max*0.5)
+				hud_used.mana.icon_state = "5"
+			else if(mana >= mana_max*0.4)
+				hud_used.mana.icon_state = "4"
+			else if(mana >= mana_max*0.3)
+				hud_used.mana.icon_state = "3"
+			else if(mana >= mana_max*0.2)
+				hud_used.mana.icon_state = "2"
+			else if(mana >= mana_max*0.1)
+				hud_used.mana.icon_state = "1"
+			else
+				hud_used.mana.icon_state = "0"
+		else
+			if(hud_used?.mana.icon_state == "nothing")
+				return
+			else
+				hud_used?.mana.icon_state = "nothing"
+
 /mob/living/carbon/handle_rejection(datum/magic/MI) //
 	. = ..()
 	if(.)

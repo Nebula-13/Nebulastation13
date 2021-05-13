@@ -4320,6 +4320,7 @@
 #include "nebula_modular\code\modules\madness\weapons.dm"
 #include "nebula_modular\code\modules\magic\_blue_fire.dm"
 #include "nebula_modular\code\modules\magic\_magic.dm"
+#include "nebula_modular\code\modules\magic\mana_hud.dm"
 #include "nebula_modular\code\modules\magic\verbs.dm"
 #include "nebula_modular\code\modules\magic\invoke\_invoking.dm"
 #include "nebula_modular\code\modules\magic\invoke\advanced.dm"

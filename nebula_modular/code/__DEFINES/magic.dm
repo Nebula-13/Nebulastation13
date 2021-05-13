@@ -12,3 +12,5 @@
 #define RESIDUAL_STAGE_2 2
 #define RESIDUAL_STAGE_3 3
 #define RESIDUAL_STAGE_4 4
+
+#define ui_mana "EAST-1:28,CENTER-5:10"

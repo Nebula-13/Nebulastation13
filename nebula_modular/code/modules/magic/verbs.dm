@@ -6,15 +6,10 @@
 	tgui.ui_interact(usr)
 
 /datum/magic_menu
-	var/client/holder
+	var/is_funmin = FALSE
 
 /datum/magic_menu/New(user)
-	if (istype(user, /client))
-		var/client/user_client = user
-		holder = user_client
-	else
-		var/mob/user_mob = user
-		holder = user_mob.client
+	is_funmin = check_rights(R_FUN)
 
 /datum/magic_menu/ui_close()
 	qdel(src)
@@ -32,10 +27,13 @@
 	var/list/data = list()
 	var/list/magic =  list()
 
+	data["admin"] = is_funmin
+
 	for(var/datum/magic/invoke/M in SSmagic.loaded_magic)
 		magic = list()
 		magic["name"] = M.name
 		magic["desc"] = M.desc
+		magic["phrase"] = M.phrase
 		magic["complexity"] = M.complexity
 		magic["mana"] = M.mana_cost
 		magic["roundstart"] = M.roundstart
@@ -68,8 +66,10 @@
 	if(!selection || !(selection in players))
 		return
 
-	selection.mind.store_memory(SSmagic.set_memory(selection))
+	var/message = SSmagic.set_memory(selection)
+	selection.mind.store_memory(message)
 	selection.mind.magic_affinity = TRUE
+	to_chat(selection, "<span class='notice'><b><font color='#822bd8'>[message]</font></b></span>")
 	SSmagic.invokers += selection
 
 	log_admin("[key_name(usr)] added magic affinity to [selection]")

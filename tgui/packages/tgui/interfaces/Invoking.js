@@ -5,6 +5,9 @@ import { Window } from '../layouts';
 
 export const Invoking = (props, context) => {
   const { act, data } = useBackend(context);
+  const {
+    admin,
+  } = data;
   const magics = sortBy(magics => magics.name)(data.magics || []);
   return (
     <Window
@@ -26,6 +29,8 @@ export const Invoking = (props, context) => {
                   {magia.desc}
                 </Box>
                 <BlockQuote my={1}>
+                  {admin ? (<div>
+                  Phrase: {magia.phrase} <br /></div>) : null }
                   Complexity: {magia.complexity} <br />
                   Mana cost: {magia.mana} <br />
                   Uses: {magia.uses ? magia.uses : "∞"} <br />

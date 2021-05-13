@@ -4309,6 +4309,7 @@
 #include "modular_skyrat\modules\verbs\code\modules\mob\say.dm"
 #include "modular_skyrat\modules\verbs\code\modules\mob\subtle.dm"
 #include "modular_skyrat\modules\xenomorph\code\xenomorph_balance.dm"
+#include "nebula_modular\code\areas.dm"
 #include "nebula_modular\code\mememonkey.dm"
 #include "nebula_modular\code\smite.dm"
 #include "nebula_modular\code\__DEFINES\magic.dm"

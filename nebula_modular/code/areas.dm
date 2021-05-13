@@ -1,8 +1,8 @@
-/area/Entered(atom/movable/M)
+/area/Entered(atom/movable/AM)
 	. = ..()
-	if(isliving(M))
-		var/mob/living/AM = M
-		if(AM.mind)
+	if(isliving(AM))
+		var/mob/living/M = AM
+		if(M.mind)
 			var/obj/machinery/light_switch/L = locate() in src
 			if(L && is_station_level(L.z))
 				if(L.area.lightswitch)
@@ -16,11 +16,11 @@
 				L.area.power_change()
 				playsound(L, 'modular_skyrat/modules/aesthetics/lightswitch/sound/lightswitch.ogg', 100, 1)
 
-/area/Exited(atom/movable/M)
+/area/Exited(atom/movable/AM)
 	. = ..()
-	if(isliving(M))
-		var/mob/living/AM = M
-		if(AM.mind)
+	if(isliving(AM))
+		var/mob/living/M = AM
+		if(M.mind)
 			var/stillPopulated = FALSE
 			var/list/currentLivingMobs = GetAllContents(/mob/living)
 			for(var/mob/living/L in currentLivingMobs)

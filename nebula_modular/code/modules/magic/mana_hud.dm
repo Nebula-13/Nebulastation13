@@ -21,4 +21,4 @@
 	if(!iscarbon(usr))
 		return
 	var/mob/living/carbon/C = usr
-	to_chat(C, "<span class='notice'><b>[C.mana]</b>/<b>[C.mana_max]</b></span>")
+	to_chat(C, "<span class='notice'><b>Mana: [C.mana]/[C.mana_max]</b></span>")

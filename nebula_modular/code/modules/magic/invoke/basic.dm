@@ -75,7 +75,7 @@
 		return TRUE
 	new glow(firer)
 	var/obj/effect/dummy/luminescent_glow/lumo = locate(glow) in firer
-	lumo.set_light_range_power_color(3.1, 2, "#969ceb")
+	lumo.set_light_range_power_color(3.1, 2, firer.mana_color)
 	to_chat(firer, "<span class='notice'>You invoked Lumos!</span>")
 	while(TRUE)
 		lumo = locate(glow) in firer
@@ -107,7 +107,7 @@
 /datum/magic/invoke/lumos/maxima/fire(mob/living/firer)
 	var/obj/effect/dummy/luminescent_glow/lumo = locate(glow) in firer
 	if(lumo)
-		lumo.set_light_range_power_color(5, 3, "#969ceb")
+		lumo.set_light_range_power_color(5, 3, firer.mana_color)
 	else
 		to_chat(firer, "<span class='danger'>You need to invoke Lumos in order to use this.</span>")
 		return TRUE

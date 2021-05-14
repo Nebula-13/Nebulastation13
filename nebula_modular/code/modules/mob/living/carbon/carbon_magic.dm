@@ -40,6 +40,7 @@
 	var/magic_affinity = FALSE
 
 /mob/living
+	var/mana_color = "#969ceb"
 	var/mana_max = 0
 	var/mana = 0
 	var/obj/marked_item
@@ -49,6 +50,7 @@
 
 /mob/living/carbon/Initialize()
 	. = ..()
+	mana_color = pick("#f79797", "#969ceb", "#70c2f1", "#FAE48E", "#FA8282", "#44964A", "#e097f8", "#ffc44d")
 	mana_max = rand(MANA_MIN, MANA_MAX)
 	mana = mana_max
 
@@ -109,7 +111,7 @@
 			if(mana > mana_max)
 				mana = mana_max
 
-		if(mind?.magic_affinity && hud_used?.mana && mana != mana_max)
+		if(mind?.magic_affinity && hud_used?.mana)
 			if(mana >= mana_max-10)
 				hud_used.mana.icon_state = "10"
 			else if(mana >= mana_max*0.9)
@@ -133,7 +135,7 @@
 			else
 				hud_used.mana.icon_state = "0"
 		else
-			if(hud_used?.mana.icon_state == "nothing")
+			if(!mind.magic_affinity && hud_used?.mana.icon_state == "nothing")
 				return
 			else
 				hud_used?.mana.icon_state = "nothing"

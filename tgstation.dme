@@ -4313,6 +4313,7 @@
 #include "nebula_modular\code\mememonkey.dm"
 #include "nebula_modular\code\smite.dm"
 #include "nebula_modular\code\__DEFINES\magic.dm"
+#include "nebula_modular\code\antagonists\gamemodes.dm"
 #include "nebula_modular\code\controllers\subsystem\magic.dm"
 #include "nebula_modular\code\modules\clothing\clothing.dm"
 #include "nebula_modular\code\modules\madness\marking.dm"

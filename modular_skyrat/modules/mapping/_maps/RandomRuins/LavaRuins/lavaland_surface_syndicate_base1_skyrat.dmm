@@ -660,7 +660,7 @@
 "gB" = (
 /obj/structure/chair/stool,
 /obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2,
 /turf/open/floor/iron/white/corner{
 	dir = 4
 	},
@@ -945,6 +945,11 @@
 	req_access_txt = "150";
 	specialfunctions = 4
 	},
+/turf/open/floor/iron,
+/area/ruin/unpowered/syndicate_lava_base/main)
+"iV" = (
+/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "jh" = (
@@ -2035,11 +2040,10 @@
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "tI" = (
-/obj/machinery/computer/message_monitor,
-/obj/item/paper/monitorkey,
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 9
 	},
+/obj/structure/frame/computer,
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "tO" = (
@@ -2282,14 +2286,11 @@
 "wB" = (
 /obj/structure/bed,
 /obj/item/bedsheet/syndie,
+/obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/carpet/red,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "wC" = (
 /obj/structure/table/reinforced,
-/obj/item/radio/intercom{
-	freerange = 1;
-	name = "Syndicate Radio Intercom"
-	},
 /obj/effect/turf_decal/trimline/brown/filled/line{
 	dir = 6
 	},
@@ -2456,10 +2457,6 @@
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
 "yh" = (
 /obj/structure/table/reinforced,
-/obj/item/radio/intercom{
-	freerange = 1;
-	name = "Syndicate Radio Intercom"
-	},
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 10
 	},
@@ -2727,6 +2724,12 @@
 	},
 /turf/open/floor/engine/o2,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
+"Bo" = (
+/obj/structure/closet/secure_closet/personal/cabinet,
+/turf/open/floor/wood{
+	icon_state = "wood-broken2"
+	},
+/area/ruin/unpowered/syndicate_lava_base/main)
 "Bp" = (
 /obj/machinery/door/airlock/science{
 	name = "Xenobiology";
@@ -2932,16 +2935,7 @@
 /area/ruin/unpowered/syndicate_lava_base/main)
 "CF" = (
 /obj/structure/table/glass,
-/obj/item/integrated_electronics/wirer,
-/obj/item/integrated_electronics/debugger{
-	pixel_x = -6
-	},
-/obj/item/integrated_electronics/analyzer{
-	pixel_x = 5
-	},
-/obj/item/integrated_electronics/detailer{
-	pixel_x = 12
-	},
+/obj/item/stack/sheet/iron/fifty,
 /turf/open/floor/iron/white,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "CH" = (
@@ -3261,8 +3255,9 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "FP" = (
-/obj/structure/table/glass,
-/obj/item/stack/sheet/iron/fifty,
+/obj/item/circuitboard/machine/component_printer,
+/obj/structure/frame/machine,
+/obj/item/stack/cable_coil/five,
 /turf/open/floor/iron/white,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "FT" = (
@@ -3527,6 +3522,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/structure/barricade/wooden/crude,
 /turf/open/floor/wood,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "IG" = (
@@ -3986,7 +3982,6 @@
 /area/ruin/unpowered/syndicate_lava_base/main)
 "Mf" = (
 /obj/structure/table/glass,
-/obj/item/integrated_circuit_printer,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -4015,6 +4010,9 @@
 "Mv" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line{
 	dir = 9
+	},
+/obj/machinery/airalarm/syndicate{
+	pixel_y = 24
 	},
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
@@ -4140,12 +4138,10 @@
 "Od" = (
 /obj/structure/table/wood,
 /obj/item/ammo_box/magazine/m9mm,
-/obj/item/storage/box/syndie_kit/chameleon{
-	pixel_y = 4
-	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "Oe" = (
@@ -4254,6 +4250,12 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
+"Pf" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/wood,
+/area/ruin/unpowered/syndicate_lava_base/main)
 "Pg" = (
 /obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 4
@@ -4292,11 +4294,15 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/airalarm/syndicate{
+	pixel_y = 24
+	},
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "Pr" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/carpet/red,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "PC" = (
@@ -4314,6 +4320,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
 	dir = 8
 	},
+/obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/carpet/red,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "PR" = (
@@ -4531,10 +4538,9 @@
 /turf/closed/wall/mineral/plastitanium/explosive,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "RJ" = (
-/obj/effect/mob_spawn/human/lavaland_syndicate/comms{
-	dir = 4
+/turf/open/floor/wood{
+	icon_state = "wood-broken"
 	},
-/turf/open/floor/wood,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "RK" = (
 /obj/effect/turf_decal/trimline/brown/filled/line,
@@ -4548,6 +4554,7 @@
 /area/ruin/unpowered/syndicate_lava_base/main)
 "RL" = (
 /obj/machinery/light,
+/obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/carpet/red,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "RO" = (
@@ -5146,7 +5153,7 @@
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
 "Wx" = (
 /obj/structure/rack/shelf,
-/obj/item/multitool,
+/obj/item/multitool/circuit,
 /turf/open/floor/iron/white,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "WB" = (
@@ -5978,7 +5985,7 @@ WY
 JZ
 qT
 WG
-Ow
+Dt
 Dt
 Gx
 Yu
@@ -7433,7 +7440,7 @@ HV
 Qw
 Ic
 IF
-Sr
+Pf
 Pr
 RL
 Qr
@@ -7492,7 +7499,7 @@ AG
 mQ
 LX
 Qr
-Qp
+Bo
 PM
 wB
 Qr
@@ -7969,7 +7976,7 @@ ld
 Wr
 Na
 EK
-Za
+iV
 ij
 AD
 No

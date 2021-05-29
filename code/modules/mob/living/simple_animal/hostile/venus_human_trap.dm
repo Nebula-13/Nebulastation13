@@ -30,6 +30,7 @@
 
 	var/list/vines = list()
 
+
 /obj/structure/alien/resin/flower_bud/Initialize()
 	. = ..()
 	countdown = new(src)
@@ -134,9 +135,11 @@
 	/// The maximum amount of vines a plant can have at one time
 	var/max_vines = 4
 	/// How far away a plant can attach a vine to something
-	var/vine_grab_distance = 5
+	var/vine_grab_distance = 4 //SKYRAT EDIT - Original 5
 	/// Whether or not this plant is ghost possessable
 	var/playable_plant = TRUE
+
+	ghost_controllable = TRUE //SKYRAT EDIT ADDITION
 
 
 /mob/living/simple_animal/hostile/venus_human_trap/Life(delta_time = SSMOBS_DT, times_fired)
@@ -174,7 +177,7 @@
 	vines += newVine
 	if(isliving(the_target))
 		var/mob/living/L = the_target
-		L.Paralyze(20)
+		L.Knockdown(2 SECONDS) //Skyrat EDIT - Removes hardstun, bye!
 	ranged_cooldown = world.time + ranged_cooldown_time
 
 /mob/living/simple_animal/hostile/venus_human_trap/Login()
@@ -185,7 +188,7 @@
 	. = ..()
 	if(. || !(GLOB.ghost_role_flags & GHOSTROLE_SPAWNER))
 		return
-	humanize_plant(user)
+	//humanize_plant(user) SKYRAT EDIT REMOVAL
 
 /**
  * Sets a ghost to control the plant if the plant is eligible
@@ -198,7 +201,7 @@
 /mob/living/simple_animal/hostile/venus_human_trap/proc/humanize_plant(mob/user)
 	if(key || !playable_plant || stat)
 		return
-	var/plant_ask = alert("Become a venus human trap?", "Are you reverse vegan?", "Yes", "No")
+	var/plant_ask = tgui_alert(usr,"Become a venus human trap?", "Are you reverse vegan?", list("Yes", "No"))
 	if(plant_ask == "No" || QDELETED(src))
 		return
 	if(key)

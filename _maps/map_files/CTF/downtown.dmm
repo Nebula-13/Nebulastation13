@@ -403,11 +403,11 @@
 /turf/open/floor/iron,
 /area/ctf)
 "iv" = (
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/food/drinks/shotglass{
 	pixel_x = -9;
 	pixel_y = -4
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/food/drinks/shotglass,
 /obj/structure/table/wood{
 	resistance_flags = 64
 	},
@@ -1674,7 +1674,7 @@
 /turf/open/floor/iron/dark,
 /area/ctf)
 "EJ" = (
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/food/drinks/shotglass,
 /obj/structure/table/wood{
 	resistance_flags = 64
 	},

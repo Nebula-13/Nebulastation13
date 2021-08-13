@@ -170,9 +170,9 @@
 /area/shuttle/escape)
 "H" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/food/drinks/shotglass,
+/obj/item/reagent_containers/food/drinks/shotglass,
+/obj/item/reagent_containers/food/drinks/shotglass,
 /obj/machinery/light/directional/east,
 /obj/item/coin/plasma,
 /obj/item/coin/plasma,

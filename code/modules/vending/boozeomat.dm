@@ -4,7 +4,7 @@
 	icon_state = "boozeomat"
 	icon_deny = "boozeomat-deny"
 	products = list(/obj/item/reagent_containers/food/drinks/drinkingglass = 30,
-					/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass = 12,
+					/obj/item/reagent_containers/food/drinks/shotglass = 12,
 					/obj/item/reagent_containers/food/drinks/flask = 3,
 					/obj/item/reagent_containers/food/drinks/ice = 10,
 					/obj/item/reagent_containers/food/drinks/bottle/orangejuice = 4,

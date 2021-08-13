@@ -4,7 +4,7 @@
 	var/shifting //If we are in the shifting setting.
 
 /datum/keybinding/mob/pixel_shift
-	hotkey_keys = list("B")
+	hotkey_keys = list("J")
 	name = "pixel_shift"
 	full_name = "Pixel Shift"
 	description = "Shift your characters offset."
@@ -47,11 +47,25 @@
 			if(pixel_y <= 16)
 				pixel_y++
 				is_shifted = TRUE
+		if(NORTHEAST)
+			if(!canface())
+				return FALSE
+			if(pixel_x <= 16 && pixel_y <= 16)
+				pixel_x++
+				pixel_y++
+				is_shifted = TRUE
 		if(EAST)
 			if(!canface())
 				return FALSE
 			if(pixel_x <= 16)
 				pixel_x++
+				is_shifted = TRUE
+		if(SOUTHEAST)
+			if(!canface())
+				return FALSE
+			if(pixel_x <= 16 && pixel_y >= -16)
+				pixel_x++
+				pixel_y--
 				is_shifted = TRUE
 		if(SOUTH)
 			if(!canface())
@@ -59,9 +73,23 @@
 			if(pixel_y >= -16)
 				pixel_y--
 				is_shifted = TRUE
+		if(SOUTHWEST)
+			if(!canface())
+				return FALSE
+			if(pixel_x >= -16 && pixel_y >= -16)
+				pixel_x--
+				pixel_y--
+				is_shifted = TRUE
 		if(WEST)
 			if(!canface())
 				return FALSE
 			if(pixel_x >= -16)
 				pixel_x--
+				is_shifted = TRUE
+		if(NORTHWEST)
+			if(!canface())
+				return FALSE
+			if(pixel_x >= -16 && pixel_y <= 16)
+				pixel_x--
+				pixel_y++
 				is_shifted = TRUE

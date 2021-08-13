@@ -14,7 +14,7 @@
 	suicide_cry = "FOR THE HIVE!!"
 	var/you_are_greet = TRUE
 	var/give_objectives = TRUE
-	var/competitive_objectives = FALSE //Should we assign objectives in competition with other lings?
+	var/competitive_objectives = TRUE //Should we assign objectives in competition with other lings?
 
 	//Changeling Stuff
 
@@ -87,9 +87,7 @@
 	emporium_action.Grant(owner.current)
 
 /datum/antagonist/changeling/on_gain()
-	create_actions()
-	reset_powers()
-	create_initial_profile()
+
 	if(give_objectives)
 		forge_objectives()
 	owner.current.grant_all_languages(FALSE, FALSE, TRUE) //Grants omnitongue. We are able to transform our body after all.
@@ -103,8 +101,7 @@
 		if(B && (B.decoy_override != initial(B.decoy_override)))
 			B.organ_flags |= ORGAN_VITAL
 			B.decoy_override = FALSE
-	remove_changeling_powers()
-	. = ..()	// NEBULA EDIT
+
 
 /datum/antagonist/changeling/proc/reset_properties()
 	changeling_speak = 0
@@ -406,10 +403,6 @@
 
 
 /datum/antagonist/changeling/proc/forge_objectives()
-	//OBJECTIVES - random traitor objectives. Unique objectives "steal brain" and "identity theft".
-	//No escape alone because changelings aren't suited for it and it'd probably just lead to rampant robusting
-	//If it seems like they'd be able to do it in play, add a 10% chance to have to escape alone
-
 
 
 	var/escape_objective_possible = TRUE

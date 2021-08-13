@@ -55184,7 +55184,7 @@
 	pixel_x = 4;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/food/drinks/shotglass{
 	pixel_x = -5;
 	pixel_y = 6
 	},
@@ -56941,11 +56941,11 @@
 	pixel_x = -4;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/food/drinks/shotglass{
 	pixel_x = 7;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/food/drinks/shotglass,
 /obj/machinery/status_display/evac{
 	pixel_y = 32
 	},
@@ -67710,11 +67710,11 @@
 	pixel_x = 3;
 	pixel_y = 5
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/food/drinks/shotglass{
 	pixel_x = -6;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/food/drinks/shotglass{
 	pixel_y = 2
 	},
 /obj/machinery/keycard_auth{
@@ -69094,11 +69094,11 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/food/drinks/shotglass{
 	pixel_x = -6;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/food/drinks/shotglass{
 	pixel_x = -3;
 	pixel_y = 15
 	},
@@ -80389,11 +80389,11 @@
 /area/engineering/atmos)
 "rCj" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/food/drinks/shotglass{
 	pixel_x = -3;
 	pixel_y = 15
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/food/drinks/shotglass{
 	pixel_x = -6;
 	pixel_y = 3
 	},

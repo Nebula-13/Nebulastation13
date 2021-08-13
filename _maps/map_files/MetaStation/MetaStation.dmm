@@ -37079,8 +37079,8 @@
 /obj/structure/table/wood,
 /obj/structure/light_construct/small/directional/north,
 /obj/machinery/newscaster/directional/north,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/food/drinks/shotglass,
+/obj/item/reagent_containers/food/drinks/shotglass,
 /turf/open/floor/wood,
 /area/maintenance/port/aft)
 "kfy" = (
@@ -78092,11 +78092,11 @@
 	pixel_x = -5;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/food/drinks/shotglass{
 	pixel_x = 2;
 	pixel_y = -4
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/food/drinks/shotglass{
 	pixel_x = -9;
 	pixel_y = -4
 	},

@@ -422,8 +422,8 @@
 	},
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/food/drinks/shotglass,
+/obj/item/reagent_containers/food/drinks/shotglass,
 /obj/machinery/airalarm/directional/north,
 /turf/open/floor/carpet,
 /area/command/heads_quarters/hos)
@@ -983,8 +983,8 @@
 /obj/structure/filingcabinet,
 /obj/item/toy/figure/qm,
 /obj/item/reagent_containers/food/drinks/bottle/whiskey,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/food/drinks/shotglass,
+/obj/item/reagent_containers/food/drinks/shotglass{
 	pixel_x = 8;
 	pixel_y = 8
 	},
@@ -57562,8 +57562,8 @@
 "wES" = (
 /obj/structure/safe,
 /obj/item/clothing/head/bearpelt,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/food/drinks/shotglass,
+/obj/item/reagent_containers/food/drinks/shotglass,
 /obj/item/gun/ballistic/revolver/russian,
 /obj/item/ammo_box/a357,
 /obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,

@@ -319,11 +319,16 @@
 		"toxin2medicell",
 		"oxy2medicell",
 		//SKYRAT EDIT END  -
+
+		//Nebula v
+		"deathalarmimplant",
+		//Nebula ^
+
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 8500)
 	required_experiments = list(/datum/experiment/scanning/points/slime/easy)
 	// ORIGINAL: discount_experiments = list(/datum/experiment/scanning/random/material/meat = 4000) //Big discount to reinforce doing it.
-	discount_experiments = list(/datum/experiment/scanning/random/material/silver = 4000) //Big discount to reinforce doing it.
+	discount_experiments = list(/datum/experiment/scanning/random/material/silver = 4500) //Big discount to reinforce doing it.
 	// SKYRAT EDIT END - MATERIAL MEAT WAS REMOVED
 
 /datum/techweb_node/xenoorgan_biotech

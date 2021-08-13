@@ -364,11 +364,11 @@
 	pixel_x = -5;
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/food/drinks/shotglass{
 	pixel_x = 2;
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/food/drinks/shotglass{
 	pixel_x = 8;
 	pixel_y = 8
 	},

@@ -286,9 +286,9 @@ GLOBAL_LIST_INIT(food, list(
 
 #define APPEARANCE_CATEGORY_COLUMN "<td valign='top' width='14%'>"
 #define MAX_MUTANT_ROWS 4
-#define FLAVORTEXT_JOIN_MINIMUM 150
+#define FLAVORTEXT_JOIN_MINIMUM 0
 
-/datum/preferences/proc/check_flavor_text(inform_client = TRUE)
+/*/datum/preferences/proc/check_flavor_text(inform_client = TRUE)
 	if(!features["flavor_text"])
 		if(check_rights(R_ADMIN, FALSE))
 			var/resp = tgui_input_list(usr, "Do you want to bypass the flavor text requirement?", "Confirmation", list("Yes", "No"), 1 MINUTES)
@@ -307,7 +307,7 @@ GLOBAL_LIST_INIT(food, list(
 		if(inform_client)
 			to_chat(parent, "<span class='userdanger'>Your flavor text must be longer than [FLAVORTEXT_JOIN_MINIMUM] characters!</span>")
 		return FALSE
-	return TRUE
+	return TRUE*/
 
 /datum/preferences/proc/ShowChoices(mob/user)
 	if(!user || !user.client)

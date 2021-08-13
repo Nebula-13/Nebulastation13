@@ -61,7 +61,7 @@
 //  You can only mix the ported-over drinks in shot glasses for now (they'll mix in a shaker, but the sprite won't change for glasses). //
 //  This is on a case-by-case basis, and you can even make a separate sprite for shot glasses if you want. //
 
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass
+/obj/item/reagent_containers/food/drinks/shotglass
 	name = "shot glass"
 	desc = "A shot glass - the universal symbol for bad decisions."
 	icon_state = "shotglass"
@@ -73,13 +73,13 @@
 	custom_materials = list(/datum/material/glass=100)
 	custom_price = PAYCHECK_ASSISTANT * 0.4
 
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/update_name(updates)
+/obj/item/reagent_containers/food/drinks/shotglass/update_name(updates)
 	if(renamedByPlayer)
 		return
 	. = ..()
 	name = "[length(reagents.reagent_list) ? "filled " : null]shot glass"
 
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/update_desc(updates)
+/obj/item/reagent_containers/food/drinks/shotglass/update_desc(updates)
 	if(renamedByPlayer)
 		return
 	. = ..()
@@ -88,7 +88,7 @@
 	else
 		desc = "The challenge is not taking as many as you can, but guessing what it is before you pass out."
 
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/update_icon_state()
+/obj/item/reagent_containers/food/drinks/shotglass/update_icon_state()
 	. = ..()
 	if(!length(reagents.reagent_list))
 		icon_state = base_icon_state
@@ -97,7 +97,7 @@
 	var/datum/reagent/largest_reagent = reagents.get_master_reagent()
 	icon_state = largest_reagent.shot_glass_icon_state || "[base_icon_state]clear"
 
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/update_overlays()
+/obj/item/reagent_containers/food/drinks/shotglass/update_overlays()
 	. = ..()
 	if(icon_state != "[base_icon_state]clear")
 		return

@@ -301,7 +301,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 	message_admins("[key_name_admin(user)] has removed [name] antagonist status from [key_name_admin(owner)].")
 	log_admin("[key_name(user)] has removed [name] antagonist status from [key_name(owner)].")
 	//SKYRAT EDIT ADDITION BEGIN - AMBITIONS
-	if(uses_ambitions && owner.my_ambitions.submitted)
+	if(uses_ambitions)
 		ambitions_removal()
 	//SKYRAT EDIT ADDITION END
 	on_removal()

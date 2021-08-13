@@ -42832,11 +42832,11 @@
 /area/maintenance/port/fore)
 "fMP" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/food/drinks/shotglass{
 	pixel_x = -3;
 	pixel_y = 15
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/food/drinks/shotglass{
 	pixel_x = -6;
 	pixel_y = 3
 	},

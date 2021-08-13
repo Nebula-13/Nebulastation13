@@ -34,7 +34,7 @@
 #define TECHWEB_BOMB_CASHCAP 50000
 
 //! Amount of points gained per second by a single R&D server, see: [research][code/controllers/subsystem/research.dm]
-#define TECHWEB_SINGLE_SERVER_INCOME 52.3
+#define TECHWEB_SINGLE_SERVER_INCOME 104.6
 
 //! Swab cell line types
 #define CELL_LINE_TABLE_SLUDGE "cell_line_sludge_table"

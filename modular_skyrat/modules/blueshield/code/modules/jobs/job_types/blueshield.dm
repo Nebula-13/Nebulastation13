@@ -40,6 +40,7 @@
 
 	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE
 
+	var/datum/martial_art/cqc/style
 /datum/outfit/job/blueshield
 	name = "Blueshield"
 	jobtype = /datum/job/blueshield
@@ -78,3 +79,8 @@
 	new /obj/item/ammo_box/magazine/multi_sprite/cfa_lynx(src)
 	new /obj/item/ammo_box/magazine/multi_sprite/cfa_lynx(src)
 	new /obj/item/ammo_box/magazine/multi_sprite/cfa_lynx(src)
+
+/datum/job/blueshield/after_spawn(mob/living/carbon/user)
+	. = ..()
+	style = new
+	style.teach(user, make_temporary = TRUE)

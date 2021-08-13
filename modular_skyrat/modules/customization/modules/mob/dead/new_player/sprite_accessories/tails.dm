@@ -151,6 +151,8 @@
 /datum/sprite_accessory/tails/mammal/wagging/twocat
 	name = "Cat, Double"
 	icon_state = "twocat"
+	general_type = "feline"
+	recommended_species = list("felinid", "synthmammal", "mammal")
 
 /datum/sprite_accessory/tails/mammal/wagging/corvid
 	name = "Corvid"
@@ -171,11 +173,13 @@
 	name = "Eevee"
 	icon_state = "eevee"
 	general_type = "vulpine"
+	recommended_species = list("felinid", "synthmammal", "mammal")
 
 /datum/sprite_accessory/tails/mammal/wagging/fennec
 	name = "Fennec"
 	icon_state = "fennec"
 	general_type = "vulpine"
+	recommended_species = list("felinid", "synthmammal", "mammal")
 
 /datum/sprite_accessory/tails/mammal/wagging/fish
 	name = "Fish"
@@ -186,22 +190,24 @@
 	name = "Fox"
 	icon_state = "fox"
 	general_type = "vulpine"
+	recommended_species = list("felinid", "synthmammal", "mammal")
 
 /datum/sprite_accessory/tails/mammal/wagging/vulpkanin/fox2
 	name = "Fox (Alt 2)"
 	icon_state = "fox2"
 	general_type = "vulpine"
+	recommended_species = list("felinid", "synthmammal", "mammal")
 
 /datum/sprite_accessory/tails/mammal/wagging/vulpkanin/fox3
 	name = "Fox (Alt 3)"
 	icon_state = "fox3"
 	general_type = "vulpine"
+	recommended_species = list("felinid", "synthmammal", "mammal")
 
 /datum/sprite_accessory/tails/mammal/wagging/hawk
 	name = "Hawk"
 	icon_state = "hawk"
 	general_type = "avian"
-
 
 /datum/sprite_accessory/tails/mammal/wagging/horse
 	name = "Horse"

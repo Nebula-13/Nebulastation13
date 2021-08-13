@@ -57,6 +57,7 @@
 		"titaniumglass",
 		"gas_filter",
 		"plasmaman_gas_filter",
+		"oven_tray"
 	)
 
 /datum/techweb_node/mmi
@@ -214,7 +215,6 @@
 		"circuit_multitool",
 		"comp_arithmetic",
 		"comp_clock",
-		"comp_combiner",
 		"comp_comparison",
 		"comp_concat",
 		"comp_concat_list",
@@ -236,7 +236,6 @@
 		"comp_not",
 		"comp_pressuresensor",
 		"comp_radio",
-		"comp_ram",
 		"comp_random",
 		"comp_router",
 		"comp_select_query",

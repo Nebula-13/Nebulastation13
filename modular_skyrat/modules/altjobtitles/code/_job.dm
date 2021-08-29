@@ -22,13 +22,13 @@
 
 //Command
 /datum/job/captain
-	alt_titles = list("Station Commander", "Commanding Officer", "Site Manager")
+	alt_titles = list("Station Commander", "Commanding Officer", "Site Manager", "Dictator")
 
 /datum/job/head_of_personnel
 	alt_titles = list("Executive Officer", "Employment Officer", "Crew Supervisor")
 
 /datum/job/head_of_security
-	alt_titles = list("Security Commander", "Chief Constable", "Chief of Security", "Sheriff")
+	alt_titles = list("Security Commander", "Chief Constable", "Chief of Security", "Sheriff", "CEO of Rape")
 
 /datum/job/chief_engineer
 	alt_titles = list("Engineering Foreman")
@@ -44,7 +44,7 @@
 
 //Engineering
 /datum/job/station_engineer
-	alt_titles = list("Emergency Damage Control Technician", "Electrician", "Engine Technician", "EVA Technician", "Engineer")
+	alt_titles = list("Emergency Damage Control Technician", "Electrician", "Engine Technician", "EVA Technician", "Engineer", "Mechanic")
 
 /datum/job/atmospheric_technician
 	alt_titles = list("Life Support Technician", "Emergency Fire Technician")
@@ -80,11 +80,11 @@
 	alt_titles = list("Deck Worker", "Mailman")
 
 /datum/job/shaft_miner
-	alt_titles = list("Excavator")
+	alt_titles = list("Excavator", "Pioneer")
 
 //Service
 /datum/job/bartender
-	alt_titles = list("Mixologist", "Barkeeper")
+	alt_titles = list("Mixologist", "Barkeeper", "Innkeeper")
 
 /datum/job/cook
 	alt_titles = list("Chef", "Butcher", "Culinary Artist", "Sous-Chef")

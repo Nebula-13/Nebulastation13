@@ -4779,6 +4779,7 @@
 #include "modular_skyrat\modules\xenoarch\code\modules\research\xenoarch\xenoarch_tool.dm"
 #include "modular_skyrat\modules\xenomorph\code\xenomorph_balance.dm"
 #include "nebula_modular\code\game\objects\structures\mememonkey.dm"
+#include "nebula_modular\code\lewdemote\lewdmode.dm"
 #include "nebula_modular\code\modules\admin\smites\randomdismember.dm"
 #include "nebula_modular\code\modules\admin\smites\tablewide.dm"
 #include "nebula_modular\code\modules\antagonists\gamemodes.dm"

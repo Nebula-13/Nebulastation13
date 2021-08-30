@@ -39,7 +39,8 @@
 	var/color_changed = FALSE
 	var/static/list/dildo_designs
 	w_class = WEIGHT_CLASS_TINY
-	item_flags = DROPDEL | ABSTRACT | HAND_ITEM
+	item_flags = DROPDEL | ABSTRACT | HAND_ITEM | NOBLUDGEON
+
 
 
 
@@ -58,7 +59,7 @@
 			if(BODY_ZONE_PRECISE_GROIN)
 				if(vagina)
 					if(M.is_bottomless() || vagina.visibility_preference == GENITAL_ALWAYS_SHOW)
-						message = (user == M) ? pick("rubs [M.p_their()] vagina with [src]","gently jams [M.p_their()] pussy with [src]","fucks [M.p_their()] vagina with a [src]") : pick("uses [src] to fuck [M]'s vagina","jams [M]'s pussy with [src]")
+						message = pick("fucks [M]'s vagina","jams their cock in [M]'s pussy", "goes balls deep in [M]'s cunt")
 						M.adjustArousal(6)
 						M.adjustPleasure(8)
 						user.adjustArousal(4)
@@ -81,7 +82,7 @@
 
 			if(BODY_ZONE_HEAD, BODY_ZONE_PRECISE_MOUTH, BODY_ZONE_PRECISE_EYES) //Mouth only. Sorry, perverts. No eye/ear penetration for you today.
 				if(!M.is_mouth_covered())
-					message = (user == M) ? pick("licks [src] erotically","sucks on [src], slowly inserting it into [M.p_their()] throat") : pick("fucks [M]'s mouth with [src]", "inserts [src] into [M]'s throat, choking [M.p_them()]", "forces [M] to suck [src]", "inserts [src] into [M]'s throat")
+					message = pick("fucks [M]'s mouth with their penis", "inserts their dick into [M]'s throat, choking [M.p_them()]", "forces [M] to taste them", "shoves their shaft into [M]'s throat")
 					M.adjustArousal(4)
 					M.adjustPleasure(1)
 					user.adjustArousal(6)
@@ -103,7 +104,7 @@
 
 			else
 				if(M.is_bottomless())
-					message = (user == M) ? pick("puts [src] into [M.p_their()] anus","slowly inserts [src] into [M.p_their()] ass") : pick("fucks [M]'s ass with [src]", "uses [src] to fuck [M]'s anus", "jams [M]'s ass with [src]", "roughly fucks [M]'s ass with [src], making [M.p_their()] eyes roll back")
+					message = pick("fucks [M]'s ass with their dick", "roughly fucks [M]'s ass with their cock", "goes balls deep into [M]'s ass")
 					M.adjustArousal(5)
 					M.adjustPleasure(5)
 					user.adjustArousal(4)
